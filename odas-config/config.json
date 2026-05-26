@@ -1,0 +1,34 @@
+{
+  "apiVersion": "1",
+  "titel": "Presse-Feed",
+  "seitentitel": "Presse-Feed",
+  "icon": "logo_ondics.png",
+  "brandingCSS": "",
+  "brandingCSSFile": "",
+  "beschreibung": [
+    "Der Presse-Feed visualisiert aktuelle Veroeffentlichungen in einem gemeinsamen Nachrichtenstrom. ",
+    "Social Media, amtliche Meldungen und Presseverteiler werden zusammengefuehrt und koennen gefiltert werden."
+  ],
+  "kontakt": [
+    "Fragen zur Demo? Schreiben Sie an <a href='mailto:info@ondics.de'>info@ondics.de</a>."
+  ],
+  "impressum": [
+    "Ondics GmbH<br>",
+    "Blumenstrasse 19<br>",
+    "70182 Stuttgart<br>",
+    "<a href='https://www.ondics.de/' target='_blank'>https://www.ondics.de/</a>"
+  ],
+  "datenschutz": [
+    "Die lokale Vorschau nutzt standardmaessig den hochgeladenen CKAN-Beispieldatensatz. Fuer CORS-kritische Umgebungen steht der ODAS-Proxy bereit."
+  ],
+  "urlODP": "https://open-data-app-store.de",
+  "urlDaten": "https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe",
+  "fusszeile": [
+    "(C) Copyright 2026 | ",
+    "Presse-Feed Demo | ",
+    "App-Entwickler: Ondics GmbH"
+  ],
+  "apiurl": "https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe/download/beispiel-datensatz-presse-feed.json",
+  "proxyAktiv": "ja",
+  "sprache": "de"
+}

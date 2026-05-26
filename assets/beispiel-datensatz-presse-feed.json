@@ -1,0 +1,152 @@
+[
+  {
+    "datum": "2026-05-26",
+    "uhrzeit": "07:30",
+    "kanal": "Social Media",
+    "schlagworte": ["Verkehr", "Pendler", "Innenstadt"],
+    "amt": "Pressestelle",
+    "kurztext": "Hinweis zum Berufsverkehr auf der Ringstrasse",
+    "text": "Zum Start in den Berufsverkehr weist die Stadt auf hohes Verkehrsaufkommen rund um die Ringstrasse hin. Verkehrsteilnehmende werden gebeten, mehr Zeit einzuplanen und moeglichst auf Bus und Bahn auszuweichen.",
+    "url": "https://example.org/social/ringstrasse-berufsverkehr"
+  },
+  {
+    "datum": "2026-05-26",
+    "uhrzeit": "08:45",
+    "kanal": "Amtliche Veröffentlichungen",
+    "schlagworte": ["Bauen", "Innenstadt", "Sperrung"],
+    "amt": "Tiefbauamt",
+    "kurztext": "Teilweise Sperrung der Musterbruecke ab Donnerstag",
+    "text": "Wegen Instandsetzungsarbeiten wird die Musterbruecke ab Donnerstag, 28.05.2026, abschnittsweise gesperrt. Eine Umleitung wird ausgeschildert. Fuss- und Radverkehr bleiben moeglich.",
+    "url": "https://example.org/amtlich/musterbruecke-sperrung"
+  },
+  {
+    "datum": "2026-05-26",
+    "uhrzeit": "09:15",
+    "kanal": "Presseverteiler",
+    "schlagworte": ["Bildung", "Jugend", "Ferien"],
+    "amt": "Schulverwaltungsamt",
+    "kurztext": "Sommerferienprogramm mit ueber 120 Angeboten gestartet",
+    "text": "Das Sommerferienprogramm der Stadt bietet in diesem Jahr ueber 120 Einzelveranstaltungen aus Sport, Kultur, Technik und Naturbildung. Anmeldungen sind ab sofort online moeglich.",
+    "url": "https://example.org/presse/sommerferienprogramm-2026"
+  },
+  {
+    "datum": "2026-05-26",
+    "uhrzeit": "10:00",
+    "kanal": "Social Media",
+    "schlagworte": ["Klima", "Mobilitaet", "Mitmachen"],
+    "amt": "Klimaschutzstelle",
+    "kurztext": "Fahrradwoche sammelt Lieblingsrouten aus der Stadt",
+    "text": "Im Rahmen der Fahrradwoche ruft die Stadt dazu auf, sichere und beliebte Radverbindungen zu teilen. Die Rueckmeldungen fliessen in die Weiterentwicklung des Radverkehrskonzepts ein.",
+    "url": "https://example.org/social/fahrradwoche-routen"
+  },
+  {
+    "datum": "2026-05-26",
+    "uhrzeit": "11:30",
+    "kanal": "Amtliche Veröffentlichungen",
+    "schlagworte": ["Sicherheit", "Veranstaltung", "Stadtfest"],
+    "amt": "Ordnungsamt",
+    "kurztext": "Sicherheitskonzept fuer das Stadtfest veroeffentlicht",
+    "text": "Zum Stadtfest gelten erweiterte Sicherheitsmassnahmen mit Sperrzonen, Rettungswegen und zusaetzlichen Informationspunkten. Besucherinnen und Besucher werden gebeten, fruehzeitig anzureisen.",
+    "url": "https://example.org/amtlich/stadtfest-sicherheitskonzept"
+  },
+  {
+    "datum": "2026-05-26",
+    "uhrzeit": "13:10",
+    "kanal": "Presseverteiler",
+    "schlagworte": ["Kultur", "Innenstadt", "Open Air"],
+    "amt": "Kulturamt",
+    "kurztext": "Kostenfreie Open-Air-Reihe startet auf dem Marktplatz",
+    "text": "An vier Sommerabenden bringt die neue Open-Air-Reihe Musik, Theater und Lesungen auf den Marktplatz. Das Programm richtet sich an Familien, Jugendliche und interessierte Gaeste.",
+    "url": "https://example.org/presse/open-air-marktplatz"
+  },
+  {
+    "datum": "2026-05-25",
+    "uhrzeit": "08:20",
+    "kanal": "Amtliche Veröffentlichungen",
+    "schlagworte": ["Soziales", "Gesundheit", "Hitze"],
+    "amt": "Sozialamt",
+    "kurztext": "Kommunale Hitzehilfe mit laengeren Oeffnungszeiten",
+    "text": "Die stadtweiten Anlaufstellen der Hitzehilfe erweitern ihre Oeffnungszeiten. Vor Ort stehen Trinkwasser, Sitzmoeglichkeiten und Beratung fuer besonders belastete Personengruppen bereit.",
+    "url": "https://example.org/amtlich/hitzehilfe"
+  },
+  {
+    "datum": "2026-05-25",
+    "uhrzeit": "09:50",
+    "kanal": "Social Media",
+    "schlagworte": ["Verwaltung", "Service", "Buergeramt"],
+    "amt": "Buergeramt",
+    "kurztext": "Zusatztermine fuer Reisepass und Ausweis freigeschaltet",
+    "text": "Wegen hoher Nachfrage wurden fuer die kommende Woche weitere Onlinetermine im Buergeramt freigeschaltet. Wer zeitnah einen Ausweis benoetigt, sollte fruehzeitig buchen.",
+    "url": "https://example.org/social/zusatztermine-buergeramt"
+  },
+  {
+    "datum": "2026-05-25",
+    "uhrzeit": "11:05",
+    "kanal": "Presseverteiler",
+    "schlagworte": ["Wirtschaft", "Innenstadt", "Einzelhandel"],
+    "amt": "Wirtschaftsfoerderung",
+    "kurztext": "Neues Foerderprogramm fuer Ladenleerstaende vorgestellt",
+    "text": "Mit einem neuen Foerderprogramm unterstuetzt die Stadt die Zwischennutzung leerstehender Ladenflaechen. Ziel ist es, die Innenstadt zu beleben und Gruendungen zu erleichtern.",
+    "url": "https://example.org/presse/foerderprogramm-ladenleerstaende"
+  },
+  {
+    "datum": "2026-05-24",
+    "uhrzeit": "07:55",
+    "kanal": "Social Media",
+    "schlagworte": ["Umwelt", "Abfall", "Sauberkeit"],
+    "amt": "Abfallwirtschaftsbetrieb",
+    "kurztext": "Aktionstag fuer saubere Quartiere angekuendigt",
+    "text": "Am kommenden Samstag organisiert die Stadt gemeinsam mit lokalen Initiativen einen Aktionstag fuer saubere Quartiere. Handschuhe, Saecke und Sammelstellen werden bereitgestellt.",
+    "url": "https://example.org/social/saubere-quartiere"
+  },
+  {
+    "datum": "2026-05-24",
+    "uhrzeit": "10:40",
+    "kanal": "Amtliche Veröffentlichungen",
+    "schlagworte": ["Planung", "Beteiligung", "Hafenquartier"],
+    "amt": "Stadtplanungsamt",
+    "kurztext": "Bebauungsplan fuer das Hafenquartier liegt aus",
+    "text": "Der Bebauungsplan fuer das Hafenquartier liegt bis Ende des Monats oeffentlich aus. Stellungnahmen koennen digital oder vor Ort eingereicht werden.",
+    "url": "https://example.org/amtlich/hafenquartier-bebauungsplan"
+  },
+  {
+    "datum": "2026-05-24",
+    "uhrzeit": "14:25",
+    "kanal": "Presseverteiler",
+    "schlagworte": ["Sport", "Jugend", "Foerderung"],
+    "amt": "Sportamt",
+    "kurztext": "Vereine erhalten zusaetzliche Zuschuesse fuer Jugendarbeit",
+    "text": "Die Stadt stellt weitere Mittel fuer die Jugendarbeit in Sportvereinen bereit. Die Foerderung soll insbesondere niederschwellige Bewegungsangebote in den Stadtteilen staerken.",
+    "url": "https://example.org/presse/jugendsport-foerderung"
+  },
+  {
+    "datum": "2026-05-23",
+    "uhrzeit": "08:10",
+    "kanal": "Social Media",
+    "schlagworte": ["Bildung", "Schule", "Digitalisierung"],
+    "amt": "Medienzentrum",
+    "kurztext": "Schulprojektwoche zu Medienkompetenz gestartet",
+    "text": "Zum Auftakt der Projektwoche besuchen mobile Teams mehrere Schulen und bieten Workshops zu Desinformation, Datenschutz und kreativer Medienarbeit an.",
+    "url": "https://example.org/social/medienkompetenz-projektwoche"
+  },
+  {
+    "datum": "2026-05-23",
+    "uhrzeit": "12:00",
+    "kanal": "Amtliche Veröffentlichungen",
+    "schlagworte": ["Wahlen", "Buergerservice", "Information"],
+    "amt": "Wahlamt",
+    "kurztext": "Hinweise zur Briefwahl veroeffentlicht",
+    "text": "Das Wahlamt informiert ueber Fristen, Beantragung und Ruecksendung der Briefwahlunterlagen. Alle relevanten Termine und Kontaktwege sind in der Bekanntmachung zusammengefasst.",
+    "url": "https://example.org/amtlich/briefwahl-hinweise"
+  },
+  {
+    "datum": "2026-05-22",
+    "uhrzeit": "15:35",
+    "kanal": "Presseverteiler",
+    "schlagworte": ["Gesundheit", "Familie", "Beratung"],
+    "amt": "Gesundheitsamt",
+    "kurztext": "Neue Elternberatung startet in drei Stadtteilen",
+    "text": "Mit einer neuen aufsuchenden Elternberatung erweitert das Gesundheitsamt sein Unterstuetzungsangebot fuer junge Familien. Die Beratung ist kostenfrei und ohne Voranmeldung erreichbar.",
+    "url": "https://example.org/presse/elternberatung"
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "fields": [
+    {
+      "name": "datum",
+      "type": "date",
+      "description": "Datum der Veroeffentlichung"
+    },
+    {
+      "name": "uhrzeit",
+      "type": "time",
+      "description": "Uhrzeit der Veroeffentlichung"
+    },
+    {
+      "name": "kanal",
+      "type": "string",
+      "description": "Vertriebskanal der Meldung, z. B. Social Media, Amtlich oder Presseverteiler"
+    },
+    {
+      "name": "schlagworte",
+      "type": "array",
+      "description": "Thematische Tags oder Schlagworte zur Meldung"
+    },
+    {
+      "name": "amt",
+      "type": "string",
+      "description": "Veroeffentlichende Stelle oder Amt"
+    },
+    {
+      "name": "kurztext",
+      "type": "string",
+      "description": "Kurzbeschreibung fuer die kompakte Feed-Ansicht"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "Volltext oder ausfuehrliche Beschreibung der Veroeffentlichung"
+    },
+    {
+      "name": "url",
+      "type": "string",
+      "description": "Optionale URL zur Originalpublikation"
+    }
+  ]
+}

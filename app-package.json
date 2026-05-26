@@ -1,0 +1,210 @@
+{
+  "app-entwickler-id": "12343",
+  "app-entwickler-name": "ondics-gmbh",
+  "name-in-url": "presse-feed",
+  "name": "Presse-Feed",
+  "version": "1.1.0",
+  "odas-app-icon": "assets/odas-app-icon.svg",
+  "app-icon": "assets/odas-app-icon.svg",
+  "kurzbeschreibung": "Visueller Nachrichtenstream fuer Social Media, amtliche Veroeffentlichungen und Presseverteiler in einer gemeinsamen ODAS-App.",
+  "beschreibung": [
+    "_multiline_",
+    "Der Presse-Feed visualisiert einen oeffentlichen Nachrichtenstrom fuer Kommunen, Institutionen und Fachstellen.",
+    "Die App stellt Meldungen aus Social Media, amtlichen Veroeffentlichungen und klassischen Presseverteilern gemeinsam dar.",
+    "Ein kompaktes Lagebild zeigt aktuelle Schwerpunkte, waehrend der Feed nach Kanal, Tags, Stelle und Zeitraum filterbar bleibt.",
+    ""
+  ],
+  "tags-funktion": ["Presse", "Nachrichten", "Veroeffentlichungen"],
+  "tags-dateityp": ["JSON"],
+  "tags-datenart": [
+    "Social Media",
+    "Amtliche Veroeffentlichungen",
+    "Presseverteiler"
+  ],
+  "screenshots": [
+    "assets/Desktop_Screenshot.png",
+    "assets/Mobile_Screenshot.png"
+  ],
+  "daten": {
+    "beschreibung": "Erwartet einen normalisierten JSON-Datensatz mit Datum, Uhrzeit, Kanal, Tags, Stelle/Amt, Kurztext bzw. Volltext und optionaler Publikations-URL.",
+    "schema": "assets/schema.json",
+    "beispiel": "Array von Feed-Eintraegen oder CKAN Datastore-Antwort mit result.records[]",
+    "beispiel-url": "https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe/download/beispiel-datensatz-presse-feed.json"
+  },
+  "branding-css": "",
+  "api-version": "1",
+  "instanz-config": {
+    "seitentitel": {
+      "label": "Seitentitel",
+      "hilfe": "Titel der App im Browser-Tab.",
+      "default": "Presse-Feed",
+      "format": {
+        "typ": "string",
+        "laenge": 80
+      },
+      "erforderlich": "ja"
+    },
+    "titel": {
+      "label": "Titel",
+      "hilfe": "Titelzeile der App.",
+      "default": "Presse-Feed",
+      "format": {
+        "typ": "string",
+        "laenge": 80
+      },
+      "erforderlich": "ja"
+    },
+    "icon": {
+      "label": "App-Icon",
+      "hilfe": "Wird links oben im Header angezeigt.",
+      "default": "{{{odp.logo}}}",
+      "format": {
+        "typ": "image",
+        "hoehe": 100,
+        "breite": 300
+      },
+      "erforderlich": "ja"
+    },
+    "kontakt": {
+      "label": "Kontakt",
+      "hilfe": "Kontaktinformationen im Menuepunkt Kontakt.",
+      "format": {
+        "typ": "markdown"
+      },
+      "default": [
+        "_multiline_",
+        "Sie haben Hinweise, Korrekturen oder Fragen zu den veroeffentlichten Meldungen?",
+        "Dann wenden Sie sich bitte an die im Open Data Portal hinterlegte Kontaktstelle.",
+        "Telefon: <a href='tel:{{odp.anbieter.telcode}}'>{{odp.anbieter.tel}}</a>",
+        "E-Mail: <a href='mailto:{{odp.anbieter.email}}'>{{odp.anbieter.email}}</a>"
+      ],
+      "erforderlich": "ja"
+    },
+    "beschreibung": {
+      "label": "Beschreibung",
+      "hilfe": "Text fuer den Menuepunkt Ueber diese App.",
+      "format": {
+        "typ": "markdown"
+      },
+      "default": [
+        "_multiline_",
+        "Der Presse-Feed macht aktuelle Veroeffentlichungen transparent und leicht durchsuchbar.",
+        "## Inhalte",
+        "Die App verbindet Social-Media-Posts, amtliche Veroeffentlichungen und klassische Pressemeldungen in einem gemeinsamen Zeitstrom.",
+        "## Nutzung",
+        "Filter nach Kanal, Tags, Zeitraum und veroeffentlichender Stelle helfen bei der schnellen Einordnung.",
+        "## Datenquelle",
+        "Standardmaessig wird die App mit dem hochgeladenen CKAN-Beispieldatensatz aus dem Open Data Portal ausgeliefert.",
+        "Bei CORS-bedingten Browser-Restriktionen kann die Quelle ueber den ODAS-Proxy geladen werden.",
+        "## Open Data App Store",
+        "Die App ist fuer den Einsatz im Open Data App Store konzipiert."
+      ],
+      "erforderlich": "ja"
+    },
+    "impressum": {
+      "label": "Impressum",
+      "hilfe": "Text fuer den Menuepunkt Impressum.",
+      "format": {
+        "typ": "markdown"
+      },
+      "default": [
+        "_multiline_",
+        "### Anbieter",
+        "{{{odp.anbieter.orgName}}}",
+        "{{{odp.anbieter.orgUnit}}}",
+        "{{odp.anbieter.strasse}}",
+        "{{odp.anbieter.plzort}}",
+        "",
+        "Website: <a href='{{odp.anbieter.url-extern}}' target='_blank'>{{odp.anbieter.url-extern}}</a>",
+        "",
+        "### Kontakt",
+        "Tel.: {{odp.anbieter.tel}}",
+        "E-Mail: <a href='mailto:{{odp.anbieter.email}}'>{{odp.anbieter.email}}</a>"
+      ],
+      "erforderlich": "ja"
+    },
+    "datenschutz": {
+      "label": "Datenschutz",
+      "hilfe": "Text fuer den Menuepunkt Datenschutz.",
+      "format": {
+        "typ": "markdown"
+      },
+      "default": [
+        "_multiline_",
+        "Diese App verarbeitet ausschliesslich die konfigurierten Veroeffentlichungsdaten und keine zusaetzlichen personenbezogenen Profildaten.",
+        "Massgeblich sind die Datenschutzangaben des jeweiligen Portalbetreibers."
+      ],
+      "erforderlich": "ja"
+    },
+    "fusszeile": {
+      "label": "Fusszeile",
+      "hilfe": "Text in der unteren Fusszeile.",
+      "format": {
+        "typ": "string",
+        "laenge": 160
+      },
+      "default": "(C) {{jahr}} | Daten und Meldungen: {{odp.anbieter.name}} | App: {{app.developer.name}}",
+      "erforderlich": "ja"
+    },
+    "brandingCSS": {
+      "label": "Branding CSS",
+      "hilfe": "Optionaler CSS-Code fuer kundenspezifisches Branding.",
+      "format": {
+        "typ": "string",
+        "laenge": 5000
+      },
+      "default": "",
+      "erforderlich": "nein"
+    },
+    "brandingCSSFile": {
+      "label": "Branding CSS Datei",
+      "hilfe": "Optionaler Pfad oder URL zu einer CSS-Datei fuer Branding.",
+      "format": {
+        "typ": "url"
+      },
+      "default": "",
+      "erforderlich": "nein"
+    },
+    "urlDaten": {
+      "label": "URL zur Datensatzseite",
+      "hilfe": "Optionaler Link zur ODP-Datensatzseite oder Originalpublikation.",
+      "format": {
+        "typ": "url"
+      },
+      "default": "https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe",
+      "beispiel": "",
+      "erforderlich": "nein"
+    },
+    "apiurl": {
+      "label": "URL zur Feed-Datenquelle",
+      "hilfe": "JSON-Endpunkt mit den Meldungen oder CKAN-Datastore-Antwort. Standardmaessig ist hier der CKAN-Beispieldatensatz hinterlegt.",
+      "format": {
+        "typ": "url",
+        "laenge": 255
+      },
+      "default": "https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe/download/beispiel-datensatz-presse-feed.json",
+      "beispiel": "",
+      "erforderlich": "ja"
+    },
+    "proxyAktiv": {
+      "label": "ODAS-Proxy aktiv",
+      "hilfe": "Laedt die Datenquelle ueber den ODAS-Proxy. Empfohlen, wenn der CKAN-Download keine offenen CORS-Header liefert.",
+      "format": {
+        "typ": "dropdown",
+        "optionen": ["ja", "nein"],
+        "default": "ja"
+      },
+      "erforderlich": "ja"
+    },
+    "sprache": {
+      "label": "Sprache der App",
+      "hilfe": "Aktuell wird Deutsch unterstuetzt.",
+      "format": {
+        "typ": "dropdown",
+        "optionen": ["de"],
+        "default": "de"
+      },
+      "erforderlich": "ja"
+    }
+  }
+}
