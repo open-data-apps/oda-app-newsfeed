@@ -82,7 +82,7 @@ test("filterFeedItems applies channel, tag, office and range filters together", 
     tag: "Verkehr",
     office: "Tiefbauamt",
     range: "7d",
-  });
+  }, new Date("2026-05-26T12:00:00"));
 
   assert.equal(filtered.length, 1);
   assert.equal(filtered[0].summary, "Baustellenupdate");
