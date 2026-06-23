@@ -1,5 +1,16 @@
 # Changelog
 
+## 16.06.2026 (Version 1.3.0)
+
+- ENH: Methodikbox (ausklappbar) mit Datenquelle-Hinweis und Datenstand ergaenzt (`datenquelleHinweis`, `datenStand`).
+- ENH: KPI-Erklaerungstexte unter den Kennzahlen ergaenzt (`kpiKontext1`–`kpiKontext4`).
+
+## 16.06.2026 (Version 1.2.0)
+
+- ENH: Schale-4-Verstaendlichkeit ergaenzt – „Fuer wen ist diese App?"-Block in Beschreibung und README.
+- ENH: Konfigurierbarer Abschnitt „Weitere Informationen" mit weiterfuehrenden Links (neues Feld `weiterfuehrendeLinks`, leer = ausgeblendet).
+- ENH: Automatisches Datenfrische-Label, das Datum und Uhrzeit der neuesten Meldung anzeigt.
+
 ## 26.05.2026
 
 - FEAT: Presse-Feed mit Lagebild, Filterleiste und chronologischem Nachrichtenstrom umgesetzt

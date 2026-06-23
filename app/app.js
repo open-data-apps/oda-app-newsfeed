@@ -357,6 +357,49 @@ function buildLagebild(items, nowInput = new Date()) {
   };
 }
 
+function renderDatenfrische() {
+  const items = appState.allItems || [];
+  if (!items.length) return "";
+  const newest = items[0];
+  if (!newest || !newest.dateLabel) return "";
+  const zeit = newest.timeLabel ? ` um ${escapeHtml(newest.timeLabel)} Uhr` : "";
+  return `<p class="feed-freshness text-muted small mb-0">Aktualisiert: ${escapeHtml(newest.dateLabel)}${zeit}</p>`;
+}
+
+function renderWeitereInfos(configdata = {}) {
+  const links = String(configdata.weiterfuehrendeLinks || "").trim();
+  if (!links) return "";
+  return (
+    '<section class="news-weitere-infos card-surface">' +
+    '<p class="section-kicker">Weitere Informationen</p>' +
+    "<div>" +
+    links +
+    "</div>" +
+    "</section>"
+  );
+}
+
+function renderMethodikbox(configdata = {}) {
+  const hinweis = String(configdata.datenquelleHinweis || "").trim();
+  const stand = String(configdata.datenStand || "").trim();
+  if (!hinweis && !stand) return "";
+  const standHtml = stand
+    ? `<p class="text-muted small mb-2">${escapeHtml(stand)}</p>`
+    : "";
+  return (
+    '<section class="news-methodik card-surface">' +
+    '<button class="news-methodik-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#news-methodik-body" aria-expanded="false" aria-controls="news-methodik-body">' +
+    '<span class="section-kicker">Methodik &amp; Datenquelle</span>' +
+    '<span class="news-methodik-chevron" aria-hidden="true">&#9662;</span>' +
+    "</button>" +
+    '<div id="news-methodik-body" class="collapse mt-2">' +
+    standHtml +
+    hinweis +
+    "</div>" +
+    "</section>"
+  );
+}
+
 function renderFeedApp(configdata = {}) {
   const filteredItems = filterFeedItems(
     appState.allItems,
@@ -382,16 +425,17 @@ function renderFeedApp(configdata = {}) {
             und Presseverteiler in einer gemeinsamen, filterbaren Ansicht.
           </p>
           ${renderSourceLink()}
+          ${renderDatenfrische()}
           ${renderNotice()}
         </div>
         ${renderFeaturedOfficial(lagebild.featuredOfficial)}
       </div>
 
       <section class="summary-grid">
-        ${renderMetricCard("Meldungen heute", lagebild.todayCount, "Im gewählten Datenbestand")}
-        ${renderMetricCard("Sichtbare Meldungen", lagebild.totalCount, "Nach aktueller Filterung")}
-        ${renderMetricCard("Aktive Stellen", lagebild.activeOfficeCount, "Mit mindestens einer Meldung")}
-        ${renderMetricCard("Amtliche Meldungen", lagebild.officialCount, "Mit hervorgehobener Priorität")}
+        ${renderMetricCard("Meldungen heute", lagebild.todayCount, "Im gewählten Datenbestand", configdata.kpiKontext1, 1)}
+        ${renderMetricCard("Sichtbare Meldungen", lagebild.totalCount, "Nach aktueller Filterung", configdata.kpiKontext2, 2)}
+        ${renderMetricCard("Aktive Stellen", lagebild.activeOfficeCount, "Mit mindestens einer Meldung", configdata.kpiKontext3, 3)}
+        ${renderMetricCard("Amtliche Meldungen", lagebild.officialCount, "Mit hervorgehobener Priorität", configdata.kpiKontext4, 4)}
       </section>
 
       <section class="filter-panel card-surface">
@@ -463,6 +507,9 @@ function renderFeedApp(configdata = {}) {
         </div>
         ${renderFeedItems(filteredItems)}
       </section>
+
+      ${renderMethodikbox(configdata)}
+      ${renderWeitereInfos(configdata)}
     </section>
   `;
 
@@ -500,12 +547,18 @@ function renderFatalError(error) {
   `;
 }
 
-function renderMetricCard(label, value, hint) {
+function renderMetricCard(label, value, hint, kontext, idx) {
+  const k = String(kontext || "").trim();
+  const n = idx || 0;
+  const kontextHtml = k
+    ? `<button class="metric-card__info-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#news-kpi-kontext-${n}" aria-expanded="false" aria-controls="news-kpi-kontext-${n}" aria-label="Erklärung zu diesem Wert"><span class="metric-card__info-icon" aria-hidden="true">ⓘ</span></button><div id="news-kpi-kontext-${n}" class="collapse"><div class="metric-card__kontext">${escapeHtml(k)}</div></div>`
+    : "";
   return `
     <article class="metric-card card-surface">
       <p class="metric-card__label">${escapeHtml(label)}</p>
       <strong class="metric-card__value">${escapeHtml(String(value))}</strong>
       <span class="metric-card__hint">${escapeHtml(hint)}</span>
+      ${kontextHtml}
     </article>
   `;
 }

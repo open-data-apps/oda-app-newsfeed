@@ -20,6 +20,10 @@ Die App ist eine Single Page Application mit:
 - Hervorgehobenen amtlichen Veroeffentlichungen
 - Detailansicht pro Meldung mit Volltext und optionaler Quelle
 
+## Fuer wen ist diese App?
+
+Diese App richtet sich an Kommunen, Institutionen, Fachstellen und interessierte Buergerinnen und Buerger. Voraussetzung ist kein spezielles Datenwissen – wer amtliche Meldungen und Pressemitteilungen verfolgen moechte, kann die App direkt nutzen.
+
 ## Datenformat
 
 Die App erwartet eine JSON-Datenquelle mit normalisierten Feldern fuer:

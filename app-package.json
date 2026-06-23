@@ -3,7 +3,7 @@
   "app-entwickler-name": "ondics-gmbh",
   "name-in-url": "presse-feed",
   "name": "Presse-Feed",
-  "version": "1.1.0",
+  "version": "1.3.0",
   "odas-app-icon": "assets/odas-app-icon.svg",
   "app-icon": "assets/odas-app-icon.svg",
   "kurzbeschreibung": "Visueller Nachrichtenstream fuer Social Media, amtliche Veroeffentlichungen und Presseverteiler in einer gemeinsamen ODAS-App.",
@@ -89,6 +89,8 @@
       "default": [
         "_multiline_",
         "Der Presse-Feed macht aktuelle Veroeffentlichungen transparent und leicht durchsuchbar.",
+        "## Fuer wen ist diese App?",
+        "Diese App richtet sich an Kommunen, Institutionen, Fachstellen und interessierte Buergerinnen und Buerger. Voraussetzung ist kein spezielles Datenwissen – wer amtliche Meldungen und Pressemitteilungen verfolgen moechte, kann die App direkt nutzen.",
         "## Inhalte",
         "Die App verbindet Social-Media-Posts, amtliche Veroeffentlichungen und klassische Pressemeldungen in einem gemeinsamen Zeitstrom.",
         "## Nutzung",
@@ -195,6 +197,61 @@
         "default": "ja"
       },
       "erforderlich": "ja"
+    },
+    "weiterfuehrendeLinks": {
+      "label": "Weiterfuehrende Links",
+      "hilfe": "Verwandte Datensaetze / Hintergrundquellen (HTML/Markdown). Leer = ausgeblendet.",
+      "default": "<ul><li><a href='https://open-data-app-store.de' target='_blank'>Open Data App Store</a></li></ul>",
+      "format": {
+        "typ": "markdown"
+      },
+      "erforderlich": "nein"
+    },
+    "datenquelleHinweis": {
+      "label": "Methodik / Datenquelle-Hinweis",
+      "hilfe": "Herkunft, Erhebungsmethode und Limitierungen (HTML/Markdown). Leer = ausgeblendet.",
+      "default": "<p>Der Feed buendelt Meldungen aus Social Media, amtlichen Veroeffentlichungen und Presseverteilern aus der konfigurierten CKAN-Quelle.</p><p>Angezeigt werden die in der Quelle gelieferten Meldungen; Aktualitaet und Vollstaendigkeit haengen vom Pflegestand der Datenquelle ab.</p>",
+      "format": {
+        "typ": "markdown"
+      },
+      "erforderlich": "nein"
+    },
+    "datenStand": {
+      "label": "Datenstand",
+      "hilfe": "Freitext-Hinweis zum Stand der Daten. Leer = ausgeblendet.",
+      "default": "Stand: laufend aus der konfigurierten Quelle",
+      "format": {
+        "typ": "string"
+      },
+      "erforderlich": "nein"
+    },
+    "kpiKontext1": {
+      "label": "KPI-Erklaerung: Meldungen heute",
+      "hilfe": "Erklaertext unter dem KPI 'Meldungen heute'. Leer = ausgeblendet.",
+      "default": "Anzahl der heute veroeffentlichten Meldungen.",
+      "format": { "typ": "string" },
+      "erforderlich": "nein"
+    },
+    "kpiKontext2": {
+      "label": "KPI-Erklaerung: Sichtbare Meldungen",
+      "hilfe": "Erklaertext unter dem KPI 'Sichtbare Meldungen'. Leer = ausgeblendet.",
+      "default": "Meldungen nach der aktuell gewaehlten Filterung.",
+      "format": { "typ": "string" },
+      "erforderlich": "nein"
+    },
+    "kpiKontext3": {
+      "label": "KPI-Erklaerung: Aktive Stellen",
+      "hilfe": "Erklaertext unter dem KPI 'Aktive Stellen'. Leer = ausgeblendet.",
+      "default": "Stellen mit mindestens einer Meldung im Datenbestand.",
+      "format": { "typ": "string" },
+      "erforderlich": "nein"
+    },
+    "kpiKontext4": {
+      "label": "KPI-Erklaerung: Amtliche Meldungen",
+      "hilfe": "Erklaertext unter dem KPI 'Amtliche Meldungen'. Leer = ausgeblendet.",
+      "default": "Meldungen mit hervorgehobener amtlicher Prioritaet.",
+      "format": { "typ": "string" },
+      "erforderlich": "nein"
     },
     "sprache": {
       "label": "Sprache der App",
