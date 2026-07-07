@@ -9,13 +9,29 @@
   "kurzbeschreibung": "Visueller Nachrichtenstream fuer Social Media, amtliche Veroeffentlichungen und Presseverteiler in einer gemeinsamen ODAS-App.",
   "beschreibung": [
     "_multiline_",
-    "Der Presse-Feed visualisiert einen oeffentlichen Nachrichtenstrom fuer Kommunen, Institutionen und Fachstellen.",
-    "Die App stellt Meldungen aus Social Media, amtlichen Veroeffentlichungen und klassischen Presseverteilern gemeinsam dar.",
-    "Ein kompaktes Lagebild zeigt aktuelle Schwerpunkte, waehrend der Feed nach Kanal, Tags, Stelle und Zeitraum filterbar bleibt.",
-    ""
+    "<p>Der Presse-Feed bündelt aktuelle Veröffentlichungen aus Social Media, amtlichen Mitteilungen und Presseverteilern in einer gemeinsamen Ansicht.</p>",
+    "<p>So werden Nachrichtenströme leichter durchsuchbar und für verschiedene Zielgruppen zugänglich.</p>",
+    "<h3>Inhalte</h3>",
+    "<p>Die App verarbeitet Meldungen mit Datum, Uhrzeit, Kanal, Tags, zuständiger Stelle, Kurztext, Volltext und optionaler Publikations-URL.</p>",
+    "<p>Filter und Darstellung helfen dabei, Meldungen nach Thema, Kanal oder Zeitraum zu ordnen.</p>",
+    "<h3>Nutzung</h3>",
+    "<p>Durchsuchen Sie den Feed, filtern Sie nach relevanten Merkmalen und öffnen Sie bei Bedarf die Originalveröffentlichung. Die App zeigt die gelieferten Inhalte der konfigurierten Quelle.</p>",
+    "<h3>Für wen ist diese App?</h3>",
+    "<p>Die App richtet sich an Bürger:innen, Pressestellen, Öffentlichkeitsarbeit, Verwaltung und Medien, die Veröffentlichungen besser überblicken möchten. Besondere Datenkenntnisse sind für die Nutzung nicht erforderlich.</p>",
+    "<h3>Datenquelle</h3>",
+    "<p>Die Daten werden aus einer konfigurierten CKAN-Ressource mit normalisierten Meldungen geladen.</p>",
+    "<ul><li><strong>Open Data Portal:</strong> <a href=\"https://open-data-musterstadt.ckan.de\" target=\"_blank\" rel=\"noopener\">Open Data Musterstadt</a></li><li><strong>Datensatz/Ressource:</strong> <a href=\"https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe\" target=\"_blank\" rel=\"noopener\">Presse-Feed-Ressource</a></li><li><strong>Download:</strong> <a href=\"https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe/download/beispiel-datensatz-presse-feed.json\" target=\"_blank\" rel=\"noopener\">JSON-Beispieldatensatz</a></li></ul>",
+    "<h3>Open Data App Store</h3>",
+    "<p>Diese App ist für den Open Data App Store vorbereitet und kann mit kommunalen Presse-, News- oder Veröffentlichungsdaten konfiguriert werden.</p>"
   ],
-  "tags-funktion": ["Presse", "Nachrichten", "Veroeffentlichungen"],
-  "tags-dateityp": ["JSON"],
+  "tags-funktion": [
+    "Presse",
+    "Nachrichten",
+    "Veroeffentlichungen"
+  ],
+  "tags-dateityp": [
+    "JSON"
+  ],
   "tags-datenart": [
     "Social Media",
     "Amtliche Veroeffentlichungen",
@@ -88,18 +104,20 @@
       },
       "default": [
         "_multiline_",
-        "Der Presse-Feed macht aktuelle Veroeffentlichungen transparent und leicht durchsuchbar.",
-        "## Fuer wen ist diese App?",
-        "Diese App richtet sich an Kommunen, Institutionen, Fachstellen und interessierte Buergerinnen und Buerger. Voraussetzung ist kein spezielles Datenwissen – wer amtliche Meldungen und Pressemitteilungen verfolgen moechte, kann die App direkt nutzen.",
-        "## Inhalte",
-        "Die App verbindet Social-Media-Posts, amtliche Veroeffentlichungen und klassische Pressemeldungen in einem gemeinsamen Zeitstrom.",
-        "## Nutzung",
-        "Filter nach Kanal, Tags, Zeitraum und veroeffentlichender Stelle helfen bei der schnellen Einordnung.",
-        "## Datenquelle",
-        "Standardmaessig wird die App mit dem hochgeladenen CKAN-Beispieldatensatz aus dem Open Data Portal ausgeliefert.",
-        "Bei CORS-bedingten Browser-Restriktionen kann die Quelle ueber den ODAS-Proxy geladen werden.",
-        "## Open Data App Store",
-        "Die App ist fuer den Einsatz im Open Data App Store konzipiert."
+        "<p>Der Presse-Feed bündelt aktuelle Veröffentlichungen aus Social Media, amtlichen Mitteilungen und Presseverteilern in einer gemeinsamen Ansicht.</p>",
+        "<p>So werden Nachrichtenströme leichter durchsuchbar und für verschiedene Zielgruppen zugänglich.</p>",
+        "<h3>Inhalte</h3>",
+        "<p>Die App verarbeitet Meldungen mit Datum, Uhrzeit, Kanal, Tags, zuständiger Stelle, Kurztext, Volltext und optionaler Publikations-URL.</p>",
+        "<p>Filter und Darstellung helfen dabei, Meldungen nach Thema, Kanal oder Zeitraum zu ordnen.</p>",
+        "<h3>Nutzung</h3>",
+        "<p>Durchsuchen Sie den Feed, filtern Sie nach relevanten Merkmalen und öffnen Sie bei Bedarf die Originalveröffentlichung. Die App zeigt die gelieferten Inhalte der konfigurierten Quelle.</p>",
+        "<h3>Für wen ist diese App?</h3>",
+        "<p>Die App richtet sich an Bürger:innen, Pressestellen, Öffentlichkeitsarbeit, Verwaltung und Medien, die Veröffentlichungen besser überblicken möchten. Besondere Datenkenntnisse sind für die Nutzung nicht erforderlich.</p>",
+        "<h3>Datenquelle</h3>",
+        "<p>Die Daten werden aus einer konfigurierten CKAN-Ressource mit normalisierten Meldungen geladen.</p>",
+        "<ul><li><strong>Open Data Portal:</strong> <a href=\"https://open-data-musterstadt.ckan.de\" target=\"_blank\" rel=\"noopener\">Open Data Musterstadt</a></li><li><strong>Datensatz/Ressource:</strong> <a href=\"https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe\" target=\"_blank\" rel=\"noopener\">Presse-Feed-Ressource</a></li><li><strong>Download:</strong> <a href=\"https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe/download/beispiel-datensatz-presse-feed.json\" target=\"_blank\" rel=\"noopener\">JSON-Beispieldatensatz</a></li></ul>",
+        "<h3>Open Data App Store</h3>",
+        "<p>Diese App ist für den Open Data App Store vorbereitet und kann mit kommunalen Presse-, News- oder Veröffentlichungsdaten konfiguriert werden.</p>"
       ],
       "erforderlich": "ja"
     },
@@ -193,7 +211,10 @@
       "hilfe": "Laedt die Datenquelle ueber den ODAS-Proxy. Empfohlen, wenn der CKAN-Download keine offenen CORS-Header liefert.",
       "format": {
         "typ": "dropdown",
-        "optionen": ["ja", "nein"],
+        "optionen": [
+          "ja",
+          "nein"
+        ],
         "default": "ja"
       },
       "erforderlich": "ja"
@@ -229,28 +250,36 @@
       "label": "KPI-Erklaerung: Meldungen heute",
       "hilfe": "Erklaertext unter dem KPI 'Meldungen heute'. Leer = ausgeblendet.",
       "default": "Anzahl der heute veroeffentlichten Meldungen.",
-      "format": { "typ": "string" },
+      "format": {
+        "typ": "string"
+      },
       "erforderlich": "nein"
     },
     "kpiKontext2": {
       "label": "KPI-Erklaerung: Sichtbare Meldungen",
       "hilfe": "Erklaertext unter dem KPI 'Sichtbare Meldungen'. Leer = ausgeblendet.",
       "default": "Meldungen nach der aktuell gewaehlten Filterung.",
-      "format": { "typ": "string" },
+      "format": {
+        "typ": "string"
+      },
       "erforderlich": "nein"
     },
     "kpiKontext3": {
       "label": "KPI-Erklaerung: Aktive Stellen",
       "hilfe": "Erklaertext unter dem KPI 'Aktive Stellen'. Leer = ausgeblendet.",
       "default": "Stellen mit mindestens einer Meldung im Datenbestand.",
-      "format": { "typ": "string" },
+      "format": {
+        "typ": "string"
+      },
       "erforderlich": "nein"
     },
     "kpiKontext4": {
       "label": "KPI-Erklaerung: Amtliche Meldungen",
       "hilfe": "Erklaertext unter dem KPI 'Amtliche Meldungen'. Leer = ausgeblendet.",
       "default": "Meldungen mit hervorgehobener amtlicher Prioritaet.",
-      "format": { "typ": "string" },
+      "format": {
+        "typ": "string"
+      },
       "erforderlich": "nein"
     },
     "sprache": {
@@ -258,7 +287,9 @@
       "hilfe": "Aktuell wird Deutsch unterstuetzt.",
       "format": {
         "typ": "dropdown",
-        "optionen": ["de"],
+        "optionen": [
+          "de"
+        ],
         "default": "de"
       },
       "erforderlich": "ja"

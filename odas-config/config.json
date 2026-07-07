@@ -6,10 +6,20 @@
   "brandingCSS": "",
   "brandingCSSFile": "",
   "beschreibung": [
-    "Der Presse-Feed visualisiert aktuelle Veroeffentlichungen in einem gemeinsamen Nachrichtenstrom. ",
-    "Social Media, amtliche Meldungen und Presseverteiler werden zusammengefuehrt und koennen gefiltert werden.",
-    "## Fuer wen ist diese App?",
-    "Diese App richtet sich an Kommunen, Institutionen, Fachstellen und interessierte Buergerinnen und Buerger. Voraussetzung ist kein spezielles Datenwissen – wer amtliche Meldungen und Pressemitteilungen verfolgen moechte, kann die App direkt nutzen."
+    "<p>Der Presse-Feed bündelt aktuelle Veröffentlichungen aus Social Media, amtlichen Mitteilungen und Presseverteilern in einer gemeinsamen Ansicht.</p>",
+    "<p>So werden Nachrichtenströme leichter durchsuchbar und für verschiedene Zielgruppen zugänglich.</p>",
+    "<h3>Inhalte</h3>",
+    "<p>Die App verarbeitet Meldungen mit Datum, Uhrzeit, Kanal, Tags, zuständiger Stelle, Kurztext, Volltext und optionaler Publikations-URL.</p>",
+    "<p>Filter und Darstellung helfen dabei, Meldungen nach Thema, Kanal oder Zeitraum zu ordnen.</p>",
+    "<h3>Nutzung</h3>",
+    "<p>Durchsuchen Sie den Feed, filtern Sie nach relevanten Merkmalen und öffnen Sie bei Bedarf die Originalveröffentlichung. Die App zeigt die gelieferten Inhalte der konfigurierten Quelle.</p>",
+    "<h3>Für wen ist diese App?</h3>",
+    "<p>Die App richtet sich an Bürger:innen, Pressestellen, Öffentlichkeitsarbeit, Verwaltung und Medien, die Veröffentlichungen besser überblicken möchten. Besondere Datenkenntnisse sind für die Nutzung nicht erforderlich.</p>",
+    "<h3>Datenquelle</h3>",
+    "<p>Die Daten werden aus einer konfigurierten CKAN-Ressource mit normalisierten Meldungen geladen.</p>",
+    "<ul><li><strong>Open Data Portal:</strong> <a href=\"https://open-data-musterstadt.ckan.de\" target=\"_blank\" rel=\"noopener\">Open Data Musterstadt</a></li><li><strong>Datensatz/Ressource:</strong> <a href=\"https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe\" target=\"_blank\" rel=\"noopener\">Presse-Feed-Ressource</a></li><li><strong>Download:</strong> <a href=\"https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe/download/beispiel-datensatz-presse-feed.json\" target=\"_blank\" rel=\"noopener\">JSON-Beispieldatensatz</a></li></ul>",
+    "<h3>Open Data App Store</h3>",
+    "<p>Diese App ist für den Open Data App Store vorbereitet und kann mit kommunalen Presse-, News- oder Veröffentlichungsdaten konfiguriert werden.</p>"
   ],
   "kontakt": [
     "Fragen zur Demo? Schreiben Sie an <a href='mailto:info@ondics.de'>info@ondics.de</a>."
