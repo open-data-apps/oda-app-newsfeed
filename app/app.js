@@ -113,26 +113,104 @@ async function fetchFeedPayload(targetUrl, configdata = {}, fetchImpl = fetch) {
 }
 
 function isOdasProxyEnabled(configdata = {}) {
-  return cleanString(configdata.proxyAktiv).toLowerCase() === "ja";
+  return String(configdata.proxyAktiv || "").trim().toLowerCase() === "ja";
 }
 
 function extractPathFromUrl(url) {
   try {
-    const parsed = new URL(url);
-    return `${parsed.pathname}${parsed.search}`;
-  } catch (error) {
-    return url;
+    const parsedUrl = new URL(url);
+    return parsedUrl.pathname + parsedUrl.search;
+  } catch (_error) {
+    return String(url || "");
   }
 }
 
-function buildOdasProxyEndpoint(locationPathname = "/", targetUrl) {
-  const normalizedPath = `/${cleanString(locationPathname)
-    .replace(/^\/+/, "")
-    .replace(/\/+$/, "")}`;
+function getOdasAppBasePath(pathname) {
+  let appPath =
+    pathname === undefined
+      ? typeof window !== "undefined"
+        ? window.location.pathname
+        : "/"
+      : String(pathname || "/");
 
-  return `${normalizedPath}/odp-data?path=${encodeURIComponent(
+  if (!appPath.endsWith("/")) {
+    const lastSlashIndex = appPath.lastIndexOf("/");
+    const lastSegment = appPath.substring(lastSlashIndex + 1);
+    if (lastSegment.includes(".")) {
+      appPath = appPath.substring(0, lastSlashIndex + 1);
+    }
+  }
+
+  return appPath.replace(/\/+$/, "");
+}
+
+function getOdasProxyEndpoint(targetUrl, pathname) {
+  const appPath = getOdasAppBasePath(pathname);
+  return `${appPath}/odp-data?path=${encodeURIComponent(
     extractPathFromUrl(targetUrl),
   )}`;
+}
+
+async function fetchViaOdasProxy(targetUrl) {
+  const response = await fetch(getOdasProxyEndpoint(targetUrl), {
+    method: "POST",
+  });
+
+  if (!response.ok) {
+    throw new Error(`ODAS-Proxy-Fehler: HTTP ${response.status}`);
+  }
+
+  const proxyData = await response.json();
+  if (!proxyData || typeof proxyData.content !== "string") {
+    throw new Error("ODAS-Proxy-Antwort enthält keinen content-String.");
+  }
+
+  return proxyData.content;
+}
+
+async function fetchOdasResource(targetUrl, configdata = {}) {
+  if (isOdasProxyEnabled(configdata)) {
+    return fetchViaOdasProxy(targetUrl);
+  }
+
+  try {
+    const response = await fetch(targetUrl);
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    return response.text();
+  } catch (error) {
+    throw new Error(
+      `Direkter Datenabruf fehlgeschlagen (${error.message}). Bitte prüfen Sie die Daten-URL und die CORS-Freigabe der Datenquelle.`,
+    );
+  }
+}
+
+async function fetchOdasJson(targetUrl, configdata = {}) {
+  return JSON.parse(await fetchOdasResource(targetUrl, configdata));
+}
+
+// Newsfeed-spezifisch: erlaubt das Injizieren von fetch fuer die Tests.
+function buildOdasProxyEndpoint(locationPathname, targetUrl) {
+  return getOdasProxyEndpoint(targetUrl, locationPathname);
+}
+
+async function fetchJsonViaOdasProxy(targetUrl, fetchImpl = fetch) {
+  const response = await fetchImpl(
+    buildOdasProxyEndpoint(getCurrentLocationPathname(), targetUrl),
+    { method: "POST" },
+  );
+
+  if (!response.ok) {
+    throw new Error(`ODAS-Proxy-Fehler: HTTP ${response.status}`);
+  }
+
+  const proxyPayload = await response.json();
+  if (!proxyPayload || typeof proxyPayload.content !== "string") {
+    throw new Error("ODAS-Proxy-Antwort enthält keinen content-String.");
+  }
+
+  return JSON.parse(proxyPayload.content);
 }
 
 function getCurrentLocationPathname() {
@@ -145,22 +223,6 @@ function getCurrentLocationPathname() {
   }
 
   return "/";
-}
-
-async function fetchJsonViaOdasProxy(targetUrl, fetchImpl = fetch) {
-  const proxyUrl = buildOdasProxyEndpoint(getCurrentLocationPathname(), targetUrl);
-  const response = await fetchImpl(proxyUrl, { method: "POST" });
-
-  if (!response.ok) {
-    throw new Error(`Proxy-Fehler: HTTP ${response.status}`);
-  }
-
-  const proxyPayload = await response.json();
-  if (!proxyPayload || typeof proxyPayload.content !== "string") {
-    throw new Error("Proxy-Antwort enthaelt keinen content-String");
-  }
-
-  return JSON.parse(proxyPayload.content);
 }
 
 function buildLoadFailureNotice(proxyEnabled) {
@@ -1095,6 +1157,10 @@ const exportedApi = {
   createDemoFeedRecords,
   extractFeedRecords,
   extractPathFromUrl,
+  fetchOdasResource,
+  fetchOdasJson,
+  getOdasAppBasePath,
+  getOdasProxyEndpoint,
   filterFeedItems,
   fetchFeedPayload,
   fetchJsonViaOdasProxy,

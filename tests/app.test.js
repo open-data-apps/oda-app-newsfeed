@@ -143,6 +143,57 @@ test("buildOdasProxyEndpoint keeps only path and query for proxy requests", () =
   );
 });
 
+test("getOdasAppBasePath strips a filename so index.html URLs stay correct", () => {
+  assert.equal(appModule.getOdasAppBasePath("/app/index.html"), "/app");
+  assert.equal(appModule.getOdasAppBasePath("/app/"), "/app");
+  assert.equal(appModule.getOdasAppBasePath("/app"), "/app");
+  assert.equal(appModule.getOdasAppBasePath("/"), "");
+  assert.equal(appModule.getOdasAppBasePath("/view/odp/newsfeed/17/index.html"), "/view/odp/newsfeed/17");
+});
+
+test("buildOdasProxyEndpoint keeps the app directory for index.html URLs", () => {
+  const endpoint = appModule.buildOdasProxyEndpoint(
+    "/app/index.html",
+    "https://open-data-musterstadt.ckan.de/dataset/demo/feed.json",
+  );
+
+  assert.equal(
+    endpoint,
+    "/app/odp-data?path=%2Fdataset%2Fdemo%2Ffeed.json",
+  );
+});
+
+test("fetchOdasResource picks direct or proxy transport from proxyAktiv", async () => {
+  const aufrufe = [];
+  const fakeFetch = async (url, opts) => {
+    aufrufe.push({ url, method: opts?.method ?? "GET" });
+    return {
+      ok: true,
+      status: 200,
+      text: async () => "direkt",
+      json: async () => ({ content: "ueber-proxy" }),
+    };
+  };
+  const originalFetch = globalThis.fetch;
+  globalThis.fetch = fakeFetch;
+  try {
+    assert.equal(
+      await appModule.fetchOdasResource("https://example.com/a.json", { proxyAktiv: "nein" }),
+      "direkt",
+    );
+    assert.equal(aufrufe.at(-1).method, "GET");
+
+    assert.equal(
+      await appModule.fetchOdasResource("https://example.com/a.json", { proxyAktiv: "ja" }),
+      "ueber-proxy",
+    );
+    assert.equal(aufrufe.at(-1).method, "POST");
+    assert.ok(aufrufe.at(-1).url.includes("/odp-data?path="));
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});
+
 test("loadFeedItems uses ODAS proxy content when proxyAktiv is enabled", async () => {
   assert.equal(typeof appModule.loadFeedItems, "function");
 

@@ -3,7 +3,7 @@
   "app-entwickler-name": "ondics-gmbh",
   "name-in-url": "presse-feed",
   "name": "Presse-Feed",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "odas-app-icon": "assets/odas-app-icon.svg",
   "app-icon": "assets/odas-app-icon.svg",
   "kurzbeschreibung": "Visueller Nachrichtenstream fuer Social Media, amtliche Veroeffentlichungen und Presseverteiler in einer gemeinsamen ODAS-App.",
@@ -203,13 +203,13 @@
     "proxyAktiv": {
       "label": "ODAS-Proxy aktiv",
       "hilfe": "Laedt die Datenquelle ueber den ODAS-Proxy. Empfohlen, wenn der CKAN-Download keine offenen CORS-Header liefert.",
+      "default": "ja",
       "format": {
         "typ": "dropdown",
         "optionen": [
           "ja",
           "nein"
-        ],
-        "default": "ja"
+        ]
       },
       "erforderlich": "ja"
     },

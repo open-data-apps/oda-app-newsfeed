@@ -41,7 +41,7 @@
     "App-Entwickler: Ondics GmbH"
   ],
   "apiurl": "https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe/download/beispiel-datensatz-presse-feed.json",
-  "proxyAktiv": "ja",
+  "proxyAktiv": "nein",
   "weiterfuehrendeLinks": "<ul><li><a href='https://open-data-app-store.de' target='_blank'>Open Data App Store</a></li></ul>",
   "datenquelleHinweis": "<p>Der Feed buendelt Meldungen aus Social Media, amtlichen Veroeffentlichungen und Presseverteilern aus der konfigurierten CKAN-Quelle.</p><p>Angezeigt werden die in der Quelle gelieferten Meldungen; Aktualitaet und Vollstaendigkeit haengen vom Pflegestand der Datenquelle ab.</p>",
   "datenStand": "Stand: laufend aus der konfigurierten Quelle",
