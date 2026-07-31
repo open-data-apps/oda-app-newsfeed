@@ -71,32 +71,22 @@ async function loadFeedItems(configdata, now) {
     };
   }
 
-  try {
-    const payload = await fetchFeedPayload(apiurl, configdata);
-    const records = extractFeedRecords(payload);
-    const items = sortFeedItems(
-      records
-        .map((record, index) => normalizeFeedItem(record, index, now))
-        .filter(Boolean),
-    );
+  const payload = await fetchFeedPayload(apiurl, configdata);
+  const records = extractFeedRecords(payload);
+  const items = sortFeedItems(
+    records
+      .map((record, index) => normalizeFeedItem(record, index, now))
+      .filter(Boolean),
+  );
 
-    return {
-      items,
-      notice: items.length
-        ? ""
-        : "Die konfigurierte Datenquelle wurde geladen, enthält aber aktuell keine Meldungen.",
-      sourceUrl,
-      dataOrigin: proxyEnabled ? "proxy" : "remote",
-    };
-  } catch (error) {
-    return {
-      items: sortFeedItems(createDemoFeedRecords(now).map(normalizeFeedItem)),
-      notice: buildLoadFailureNotice(proxyEnabled),
-      sourceUrl,
-      error,
-      dataOrigin: "demo-fallback",
-    };
-  }
+  return {
+    items,
+    notice: items.length
+      ? ""
+      : "Die konfigurierte Datenquelle wurde geladen, enthält aber aktuell keine Meldungen.",
+    sourceUrl,
+    dataOrigin: proxyEnabled ? "proxy" : "remote",
+  };
 }
 
 async function fetchFeedPayload(targetUrl, configdata = {}, fetchImpl = fetch) {
@@ -223,14 +213,6 @@ function getCurrentLocationPathname() {
   }
 
   return "/";
-}
-
-function buildLoadFailureNotice(proxyEnabled) {
-  if (proxyEnabled) {
-    return "Die konfigurierte Datenquelle konnte auch über den ODAS-Proxy nicht geladen werden. Zur Vorschau werden Beispieldaten angezeigt.";
-  }
-
-  return "Die konfigurierte Datenquelle konnte nicht direkt geladen werden. Zur Vorschau werden Beispieldaten angezeigt. Falls die Quelle CORS blockiert, aktiviere den ODAS-Proxy.";
 }
 
 function extractFeedRecords(payload) {

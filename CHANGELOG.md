@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0 - 2026-07-31
+- FIX: bei Ladefehlern erscheinen keine erfundenen amtlichen Meldungen mehr; der Fehler wird durchgereicht und sichtbar gerendert (F-09)
+- CHG: buildLoadFailureNotice() und der nie ausgewertete dataOrigin-Zweig demo-fallback entfernt (F-09)
+
 ## 1.7.0 - 2026-07-31
 - CHG: dropdown-Default auf Feldebene verschoben statt in format (F-18)
 

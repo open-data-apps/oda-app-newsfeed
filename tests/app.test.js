@@ -282,3 +282,49 @@ test("fetchFeedPayload loads JSON directly when proxyAktiv is disabled", async (
     global.fetch = originalFetch;
   }
 });
+
+test("loadFeedItems propagates load errors instead of returning demo data (F-09)", async () => {
+  const originalFetch = global.fetch;
+  const originalWindow = global.window;
+
+  global.window = { location: { pathname: "/app/" } };
+  global.fetch = async () => {
+    return {
+      ok: false,
+      status: 503,
+      async json() {
+        throw new Error("no json");
+      },
+      async text() {
+        return "";
+      },
+    };
+  };
+
+  try {
+    await assert.rejects(
+      appModule.loadFeedItems(
+        {
+          apiurl: "https://open-data-musterstadt.ckan.de/feed.json",
+          proxyAktiv: "nein",
+        },
+        new Date("2026-05-26T12:00:00"),
+      ),
+      /Status 503/,
+    );
+  } finally {
+    global.fetch = originalFetch;
+    global.window = originalWindow;
+  }
+});
+
+test("loadFeedItems keeps demo data when no apiurl is configured (F-09)", async () => {
+  const result = await appModule.loadFeedItems(
+    { apiurl: "", proxyAktiv: "nein" },
+    new Date("2026-05-26T12:00:00"),
+  );
+
+  assert.equal(result.dataOrigin, "demo");
+  assert.ok(result.items.length > 0);
+  assert.match(result.notice, /keine externe Datenquelle/);
+});
