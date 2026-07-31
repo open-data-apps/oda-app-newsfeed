@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.7.0 - 2026-07-31
+- CHG: dropdown-Default auf Feldebene verschoben statt in format (F-18)
+
 ## 1.6.0 - 2026-07-30
 
 - **FIX:** Laufzeitfehler nach dem Laden der Konfiguration werden jetzt sichtbar gemeldet; `handleRouting()` wird `await`et und besitzt einen Fehlerpfad. Bisher blieb die Seite bei einem Fehler im Seitenaufbau stumm leer
