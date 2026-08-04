@@ -3,7 +3,7 @@
   "app-entwickler-name": "ondics-gmbh",
   "name-in-url": "presse-feed",
   "name": "Presse-Feed",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "odas-app-icon": "assets/odas-app-icon.svg",
   "app-icon": "assets/odas-app-icon.svg",
   "kurzbeschreibung": "Visueller Nachrichtenstream fuer Social Media, amtliche Veroeffentlichungen und Presseverteiler in einer gemeinsamen ODAS-App.",
@@ -147,7 +147,7 @@
         "_multiline_",
         "Diese App verarbeitet ausschliesslich die konfigurierten Veroeffentlichungsdaten und keine zusaetzlichen personenbezogenen Profildaten.",
         "Massgeblich sind die Datenschutzangaben des jeweiligen Portalbetreibers.",
-        "<h3>Beim Aufruf kontaktierte Drittanbieter</h3><p>Beim Aufruf dieser App werden Bibliotheken bzw. Kartendienste von folgenden externen Servern geladen. Dabei werden IP-Adresse und User-Agent der Besucher:innen an diese Anbieter übertragen:</p><ul><li><strong>cdn.jsdelivr.net</strong> — Bootstrap (Layout- und UI-Framework)</li></ul>"
+        ""
       ],
       "erforderlich": "ja"
     },
