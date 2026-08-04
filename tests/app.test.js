@@ -254,7 +254,7 @@ test("loadFeedItems uses ODAS proxy content when proxyAktiv is enabled", async (
   }
 });
 
-test("fetchFeedPayload loads JSON directly when proxyAktiv is disabled", async () => {
+test("fetchOdasJson loads JSON directly when proxyAktiv is disabled", async () => {
   const originalFetch = global.fetch;
   const calls = [];
 
@@ -262,14 +262,14 @@ test("fetchFeedPayload loads JSON directly when proxyAktiv is disabled", async (
     calls.push({ url, options });
     return {
       ok: true,
-      async json() {
-        return [{ kurztext: "Direkt geladen" }];
+      async text() {
+        return JSON.stringify([{ kurztext: "Direkt geladen" }]);
       },
     };
   };
 
   try {
-    const payload = await appModule.fetchFeedPayload(
+    const payload = await appModule.fetchOdasJson(
       "https://open-data-musterstadt.ckan.de/direct.json",
       { proxyAktiv: "nein" },
     );
@@ -310,7 +310,7 @@ test("loadFeedItems propagates load errors instead of returning demo data (F-09)
         },
         new Date("2026-05-26T12:00:00"),
       ),
-      /Status 503/,
+      /HTTP 503/,
     );
   } finally {
     global.fetch = originalFetch;

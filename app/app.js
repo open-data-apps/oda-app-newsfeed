@@ -71,7 +71,7 @@ async function loadFeedItems(configdata, now) {
     };
   }
 
-  const payload = await fetchFeedPayload(apiurl, configdata);
+  const payload = await fetchOdasJson(apiurl, configdata);
   const records = extractFeedRecords(payload);
   const items = sortFeedItems(
     records
@@ -87,19 +87,6 @@ async function loadFeedItems(configdata, now) {
     sourceUrl,
     dataOrigin: proxyEnabled ? "proxy" : "remote",
   };
-}
-
-async function fetchFeedPayload(targetUrl, configdata = {}, fetchImpl = fetch) {
-  if (isOdasProxyEnabled(configdata)) {
-    return fetchJsonViaOdasProxy(targetUrl, fetchImpl);
-  }
-
-  const response = await fetchImpl(targetUrl);
-  if (!response.ok) {
-    throw new Error(`Datenquelle antwortet mit Status ${response.status}.`);
-  }
-
-  return response.json();
 }
 
 function isOdasProxyEnabled(configdata = {}) {
@@ -141,8 +128,8 @@ function getOdasProxyEndpoint(targetUrl, pathname) {
   )}`;
 }
 
-async function fetchViaOdasProxy(targetUrl) {
-  const response = await fetch(getOdasProxyEndpoint(targetUrl), {
+async function fetchViaOdasProxy(targetUrl, fetchImpl = fetch) {
+  const response = await fetchImpl(getOdasProxyEndpoint(targetUrl), {
     method: "POST",
   });
 
@@ -158,13 +145,13 @@ async function fetchViaOdasProxy(targetUrl) {
   return proxyData.content;
 }
 
-async function fetchOdasResource(targetUrl, configdata = {}) {
+async function fetchOdasResource(targetUrl, configdata = {}, fetchImpl = fetch) {
   if (isOdasProxyEnabled(configdata)) {
-    return fetchViaOdasProxy(targetUrl);
+    return fetchViaOdasProxy(targetUrl, fetchImpl);
   }
 
   try {
-    const response = await fetch(targetUrl);
+    const response = await fetchImpl(targetUrl);
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
@@ -176,43 +163,13 @@ async function fetchOdasResource(targetUrl, configdata = {}) {
   }
 }
 
-async function fetchOdasJson(targetUrl, configdata = {}) {
-  return JSON.parse(await fetchOdasResource(targetUrl, configdata));
+async function fetchOdasJson(targetUrl, configdata = {}, fetchImpl = fetch) {
+  return JSON.parse(await fetchOdasResource(targetUrl, configdata, fetchImpl));
 }
 
 // Newsfeed-spezifisch: erlaubt das Injizieren von fetch fuer die Tests.
 function buildOdasProxyEndpoint(locationPathname, targetUrl) {
   return getOdasProxyEndpoint(targetUrl, locationPathname);
-}
-
-async function fetchJsonViaOdasProxy(targetUrl, fetchImpl = fetch) {
-  const response = await fetchImpl(
-    buildOdasProxyEndpoint(getCurrentLocationPathname(), targetUrl),
-    { method: "POST" },
-  );
-
-  if (!response.ok) {
-    throw new Error(`ODAS-Proxy-Fehler: HTTP ${response.status}`);
-  }
-
-  const proxyPayload = await response.json();
-  if (!proxyPayload || typeof proxyPayload.content !== "string") {
-    throw new Error("ODAS-Proxy-Antwort enthält keinen content-String.");
-  }
-
-  return JSON.parse(proxyPayload.content);
-}
-
-function getCurrentLocationPathname() {
-  if (
-    typeof window !== "undefined" &&
-    window.location &&
-    typeof window.location.pathname === "string"
-  ) {
-    return window.location.pathname;
-  }
-
-  return "/";
 }
 
 function extractFeedRecords(payload) {
@@ -1141,11 +1098,10 @@ const exportedApi = {
   extractPathFromUrl,
   fetchOdasResource,
   fetchOdasJson,
+  fetchViaOdasProxy,
   getOdasAppBasePath,
   getOdasProxyEndpoint,
   filterFeedItems,
-  fetchFeedPayload,
-  fetchJsonViaOdasProxy,
   isOdasProxyEnabled,
   loadFeedItems,
   normalizeFeedItem,
