@@ -160,7 +160,8 @@ ausgeliefert.
 
 ### Beim Aufruf kontaktierte Drittanbieter
 
-Beim Aufruf dieser App werden keine externen Server fuer Programmbibliotheken kontaktiert; alle Bibliotheken werden lokal aus `app/vendor/` ausgeliefert. Extern abgerufen wird ausschliesslich die konfigurierte Datenquelle - ueber den ODAS-Proxy.
+Beim Aufruf dieser App werden keine externen Server fuer Programmbibliotheken kontaktiert; alle Bibliotheken werden lokal aus `app/vendor/` ausgeliefert. Extern abgerufen wird ausschliesslich die konfigurierte Datenquelle — ueber den ODAS-Proxy.
+
 ### Auslieferung an den ODAS
 
 `make zip` erzeugt das Liefer-ZIP mit `app/`, `assets/`, `app-package.json` und
