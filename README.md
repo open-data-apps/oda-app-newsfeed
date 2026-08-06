@@ -123,14 +123,6 @@ Empfohlene Live-Server-Einstellungen:
 | `odas-config/config.json` | Lokale Vorschau-Konfiguration |
 | `assets/odas-app-icon.svg` | App-Icon fuer die Auslieferung |
 
-## Tests
-
-Die Feed-Helfer werden ueber Node-Tests abgesichert:
-
-```bash
-node --test tests/app.test.js
-```
-
 ## Betriebsarten
 
 Die App kann lokal, eigenstaendig hinter einem Traefik-Reverse-Proxy oder ueber den ODAS
