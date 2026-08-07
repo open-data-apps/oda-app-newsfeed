@@ -1,3 +1,5 @@
+let newsInstanzZaehler = 0;
+
 const DEFAULT_FILTERS = {
   channel: "alle",
   tag: "alle",
@@ -20,9 +22,11 @@ const appState = {
   sourceUrl: "",
   root: null,
   requestId: 0,
+  uid: "i1",
 };
 
 function app(configdata = {}, enclosingHtmlDivElement) {
+  appState.uid = "i" + ++newsInstanzZaehler;
   appState.requestId += 1;
   const requestId = appState.requestId;
   appState.root = enclosingHtmlDivElement;
@@ -389,11 +393,11 @@ function renderMethodikbox(configdata = {}) {
     : "";
   return (
     '<section class="news-methodik card-surface">' +
-    '<button class="news-methodik-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#news-methodik-body" aria-expanded="false" aria-controls="news-methodik-body">' +
+    '<button class="news-methodik-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#news-methodik-body-' + appState.uid + '" aria-expanded="false" aria-controls="news-methodik-body-' + appState.uid + '">' +
     '<span class="section-kicker">Methodik &amp; Datenquelle</span>' +
     '<span class="news-methodik-chevron" aria-hidden="true">&#9662;</span>' +
     "</button>" +
-    '<div id="news-methodik-body" class="collapse mt-2">' +
+    '<div id="news-methodik-body-' + appState.uid + '" class="collapse mt-2">' +
     standHtml +
     hinweis +
     "</div>" +
@@ -552,7 +556,7 @@ function renderMetricCard(label, value, hint, kontext, idx) {
   const k = String(kontext || "").trim();
   const n = idx || 0;
   const kontextHtml = k
-    ? `<button class="metric-card__info-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#news-kpi-kontext-${n}" aria-expanded="false" aria-controls="news-kpi-kontext-${n}" aria-label="Erklärung zu diesem Wert"><span class="metric-card__info-icon" aria-hidden="true">ⓘ</span></button><div id="news-kpi-kontext-${n}" class="collapse"><div class="metric-card__kontext">${escapeHtml(k)}</div></div>`
+    ? `<button class="metric-card__info-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#news-kpi-kontext-${n}-${appState.uid}" aria-expanded="false" aria-controls="news-kpi-kontext-${n}-${appState.uid}" aria-label="Erklärung zu diesem Wert"><span class="metric-card__info-icon" aria-hidden="true">ⓘ</span></button><div id="news-kpi-kontext-${n}-${appState.uid}" class="collapse"><div class="metric-card__kontext">${escapeHtml(k)}</div></div>`
     : "";
   return `
     <article class="metric-card card-surface">
