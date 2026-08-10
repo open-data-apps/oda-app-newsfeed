@@ -13,44 +13,43 @@ const CHANNEL_LABELS = {
   "Social Media": "Social",
 };
 
-const appState = {
-  filters: { ...DEFAULT_FILTERS },
-  items: [],
-  allItems: [],
-  now: new Date(),
-  notice: "",
-  sourceUrl: "",
-  root: null,
-  requestId: 0,
-  uid: "i1",
-};
+const newsfeedContainerTokens = new WeakMap();
+
+function createAppState(configdata, root) {
+  return {
+    uid: "i" + ++newsInstanzZaehler,
+    filters: { ...DEFAULT_FILTERS },
+    items: [],
+    allItems: [],
+    now: new Date(),
+    notice: "",
+    sourceUrl: cleanString(configdata.urlDaten || configdata.apiurl),
+    root,
+  };
+}
 
 function app(configdata = {}, enclosingHtmlDivElement) {
-  appState.uid = "i" + ++newsInstanzZaehler;
-  appState.requestId += 1;
-  const requestId = appState.requestId;
-  appState.root = enclosingHtmlDivElement;
-  appState.filters = { ...DEFAULT_FILTERS };
-  appState.now = new Date();
-  appState.sourceUrl = cleanString(configdata.urlDaten || configdata.apiurl);
+  const state = createAppState(configdata, enclosingHtmlDivElement);
+  const token = {};
+  newsfeedContainerTokens.set(enclosingHtmlDivElement, token);
 
   renderLoadingState(enclosingHtmlDivElement, configdata);
 
-  loadFeedItems(configdata, appState.now)
+  loadFeedItems(configdata, state.now)
     .then((result) => {
-      if (requestId !== appState.requestId) {
+      if (newsfeedContainerTokens.get(enclosingHtmlDivElement) !== token) {
         return;
       }
 
-      appState.allItems = result.items;
-      appState.items = result.items;
-      appState.notice = result.notice;
-      appState.sourceUrl = result.sourceUrl;
+      state.allItems = result.items;
+      state.items = result.items;
+      state.notice = result.notice;
+      state.sourceUrl = result.sourceUrl;
 
-      renderFeedApp(configdata);
+      renderFeedApp(configdata, state);
     })
     .catch((error) => {
-      if (requestId !== appState.requestId) {
+      if (newsfeedContainerTokens.get(enclosingHtmlDivElement) !== token) {
         return;
       }
 
@@ -362,8 +361,8 @@ function buildLagebild(items, nowInput = new Date()) {
   };
 }
 
-function renderDatenfrische() {
-  const items = appState.allItems || [];
+function renderDatenfrische(state) {
+  const items = state.allItems || [];
   if (!items.length) return "";
   const newest = items[0];
   if (!newest || !newest.dateLabel) return "";
@@ -384,7 +383,7 @@ function renderWeitereInfos(configdata = {}) {
   );
 }
 
-function renderMethodikbox(configdata = {}) {
+function renderMethodikbox(configdata = {}, state) {
   const hinweis = String(configdata.datenquelleHinweis || "").trim();
   const stand = String(configdata.datenStand || "").trim();
   if (!hinweis && !stand) return "";
@@ -393,11 +392,11 @@ function renderMethodikbox(configdata = {}) {
     : "";
   return (
     '<section class="news-methodik card-surface">' +
-    '<button class="news-methodik-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#news-methodik-body-' + appState.uid + '" aria-expanded="false" aria-controls="news-methodik-body-' + appState.uid + '">' +
+    '<button class="news-methodik-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#news-methodik-body-' + state.uid + '" aria-expanded="false" aria-controls="news-methodik-body-' + state.uid + '">' +
     '<span class="section-kicker">Methodik &amp; Datenquelle</span>' +
     '<span class="news-methodik-chevron" aria-hidden="true">&#9662;</span>' +
     "</button>" +
-    '<div id="news-methodik-body-' + appState.uid + '" class="collapse mt-2">' +
+    '<div id="news-methodik-body-' + state.uid + '" class="collapse mt-2">' +
     standHtml +
     hinweis +
     "</div>" +
@@ -405,15 +404,11 @@ function renderMethodikbox(configdata = {}) {
   );
 }
 
-function renderFeedApp(configdata = {}) {
-  const filteredItems = filterFeedItems(
-    appState.allItems,
-    appState.filters,
-    appState.now,
-  );
-  const lagebild = buildLagebild(filteredItems, appState.now);
-  const filterOptions = buildFilterOptions(appState.allItems);
-  const root = appState.root;
+function renderFeedApp(configdata = {}, state) {
+  const filteredItems = filterFeedItems(state.allItems, state.filters, state.now);
+  const lagebild = buildLagebild(filteredItems, state.now);
+  const filterOptions = buildFilterOptions(state.allItems);
+  const root = state.root;
 
   if (!root) {
     return;
@@ -429,18 +424,18 @@ function renderFeedApp(configdata = {}) {
             Der Nachrichtenstrom bündelt Social-Media-Posts, amtliche Veröffentlichungen
             und Presseverteiler in einer gemeinsamen, filterbaren Ansicht.
           </p>
-          ${renderSourceLink()}
-          ${renderDatenfrische()}
-          ${renderNotice()}
+          ${renderSourceLink(state)}
+          ${renderDatenfrische(state)}
+          ${renderNotice(state)}
         </div>
         ${renderFeaturedOfficial(lagebild.featuredOfficial)}
       </div>
 
       <section class="summary-grid">
-        ${renderMetricCard("Meldungen heute", lagebild.todayCount, "Im gewählten Datenbestand", configdata.kpiKontext1, 1)}
-        ${renderMetricCard("Sichtbare Meldungen", lagebild.totalCount, "Nach aktueller Filterung", configdata.kpiKontext2, 2)}
-        ${renderMetricCard("Aktive Stellen", lagebild.activeOfficeCount, "Mit mindestens einer Meldung", configdata.kpiKontext3, 3)}
-        ${renderMetricCard("Amtliche Meldungen", lagebild.officialCount, "Mit hervorgehobener Priorität", configdata.kpiKontext4, 4)}
+        ${renderMetricCard("Meldungen heute", lagebild.todayCount, "Im gewählten Datenbestand", configdata.kpiKontext1, 1, state)}
+        ${renderMetricCard("Sichtbare Meldungen", lagebild.totalCount, "Nach aktueller Filterung", configdata.kpiKontext2, 2, state)}
+        ${renderMetricCard("Aktive Stellen", lagebild.activeOfficeCount, "Mit mindestens einer Meldung", configdata.kpiKontext3, 3, state)}
+        ${renderMetricCard("Amtliche Meldungen", lagebild.officialCount, "Mit hervorgehobener Priorität", configdata.kpiKontext4, 4, state)}
       </section>
 
       <section class="filter-panel card-surface">
@@ -457,25 +452,25 @@ function renderFeedApp(configdata = {}) {
           <div class="col-12 col-md-6 col-xl-3">
             <label class="form-label" for="feed-filter-channel">Kanal</label>
             <select class="form-select" id="feed-filter-channel" data-filter="channel">
-              ${renderSelectOptions("Alle Kanäle", filterOptions.channels, appState.filters.channel)}
+              ${renderSelectOptions("Alle Kanäle", filterOptions.channels, state.filters.channel)}
             </select>
           </div>
           <div class="col-12 col-md-6 col-xl-3">
             <label class="form-label" for="feed-filter-tag">Tag</label>
             <select class="form-select" id="feed-filter-tag" data-filter="tag">
-              ${renderSelectOptions("Alle Tags", filterOptions.tags, appState.filters.tag)}
+              ${renderSelectOptions("Alle Tags", filterOptions.tags, state.filters.tag)}
             </select>
           </div>
           <div class="col-12 col-md-6 col-xl-3">
             <label class="form-label" for="feed-filter-office">Amt / Stelle</label>
             <select class="form-select" id="feed-filter-office" data-filter="office">
-              ${renderSelectOptions("Alle Stellen", filterOptions.offices, appState.filters.office)}
+              ${renderSelectOptions("Alle Stellen", filterOptions.offices, state.filters.office)}
             </select>
           </div>
           <div class="col-12 col-md-6 col-xl-3">
             <label class="form-label" for="feed-filter-range">Zeitraum</label>
             <select class="form-select" id="feed-filter-range" data-filter="range">
-              ${renderRangeOptions(appState.filters.range)}
+              ${renderRangeOptions(state.filters.range)}
             </select>
           </div>
         </div>
@@ -513,12 +508,12 @@ function renderFeedApp(configdata = {}) {
         ${renderFeedItems(filteredItems)}
       </section>
 
-      ${renderMethodikbox(configdata)}
+      ${renderMethodikbox(configdata, state)}
       ${renderWeitereInfos(configdata)}
     </section>
   `;
 
-  bindFeedInteractions(configdata);
+  bindFeedInteractions(configdata, state);
 }
 
 function renderLoadingState(root, configdata = {}) {
@@ -552,11 +547,11 @@ function renderFatalError(error) {
   `;
 }
 
-function renderMetricCard(label, value, hint, kontext, idx) {
+function renderMetricCard(label, value, hint, kontext, idx, state) {
   const k = String(kontext || "").trim();
   const n = idx || 0;
   const kontextHtml = k
-    ? `<button class="metric-card__info-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#news-kpi-kontext-${n}-${appState.uid}" aria-expanded="false" aria-controls="news-kpi-kontext-${n}-${appState.uid}" aria-label="Erklärung zu diesem Wert"><span class="metric-card__info-icon" aria-hidden="true">ⓘ</span></button><div id="news-kpi-kontext-${n}-${appState.uid}" class="collapse"><div class="metric-card__kontext">${escapeHtml(k)}</div></div>`
+    ? `<button class="metric-card__info-toggle collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#news-kpi-kontext-${n}-${state.uid}" aria-expanded="false" aria-controls="news-kpi-kontext-${n}-${state.uid}" aria-label="Erklärung zu diesem Wert"><span class="metric-card__info-icon" aria-hidden="true">ⓘ</span></button><div id="news-kpi-kontext-${n}-${state.uid}" class="collapse"><div class="metric-card__kontext">${escapeHtml(k)}</div></div>`
     : "";
   return `
     <article class="metric-card card-surface">
@@ -568,27 +563,27 @@ function renderMetricCard(label, value, hint, kontext, idx) {
   `;
 }
 
-function renderSourceLink() {
-  if (!appState.sourceUrl) {
+function renderSourceLink(state) {
+  if (!state.sourceUrl) {
     return `<p class="feed-source">Datenquelle: lokale Vorschau ohne konfigurierten ODP-Link.</p>`;
   }
 
   return `
     <p class="feed-source">
       Datenquelle:
-      <a href="${escapeHtml(appState.sourceUrl)}" target="_blank" rel="noreferrer">
-        ${escapeHtml(appState.sourceUrl)}
+      <a href="${escapeHtml(state.sourceUrl)}" target="_blank" rel="noreferrer">
+        ${escapeHtml(state.sourceUrl)}
       </a>
     </p>
   `;
 }
 
-function renderNotice() {
-  if (!appState.notice) {
+function renderNotice(state) {
+  if (!state.notice) {
     return "";
   }
 
-  return `<div class="feed-notice">${escapeHtml(appState.notice)}</div>`;
+  return `<div class="feed-notice">${escapeHtml(state.notice)}</div>`;
 }
 
 function renderFeaturedOfficial(item) {
@@ -736,24 +731,24 @@ function renderFeedItems(items) {
     .join("");
 }
 
-function bindFeedInteractions(configdata) {
-  if (!appState.root) {
+function bindFeedInteractions(configdata, state) {
+  if (!state.root) {
     return;
   }
 
-  appState.root.querySelectorAll("[data-filter]").forEach((element) => {
+  state.root.querySelectorAll("[data-filter]").forEach((element) => {
     element.addEventListener("change", (event) => {
       const key = event.target.getAttribute("data-filter");
-      appState.filters[key] = event.target.value;
-      renderFeedApp(configdata);
+      state.filters[key] = event.target.value;
+      renderFeedApp(configdata, state);
     });
   });
 
-  const resetButton = appState.root.querySelector("[data-action='reset-filters']");
+  const resetButton = state.root.querySelector("[data-action='reset-filters']");
   if (resetButton) {
     resetButton.addEventListener("click", () => {
-      appState.filters = { ...DEFAULT_FILTERS };
-      renderFeedApp(configdata);
+      state.filters = { ...DEFAULT_FILTERS };
+      renderFeedApp(configdata, state);
     });
   }
 }
