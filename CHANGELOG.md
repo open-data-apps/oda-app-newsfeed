@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.16.0 - 2026-08-11
+- FIX: XSS- und URL-Vertrag geschlossen (F-35): neuer Top-Level-Helfer `safeHttpUrl`; Quellenlink (`sourceUrl`) und Artikel-URLs (`item.url`) nur noch als Link gerendert, wenn sie ein gültiges http(s)-Schema haben, sonst nur escapter Text
+
 ## 1.15.0 - 2026-08-10
 - FIX: Laufzeitzustand pro App-Instanz isolieren (F-34)
 

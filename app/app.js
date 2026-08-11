@@ -567,12 +567,16 @@ function renderSourceLink(state) {
   if (!state.sourceUrl) {
     return `<p class="feed-source">Datenquelle: lokale Vorschau ohne konfigurierten ODP-Link.</p>`;
   }
+  const u = safeHttpUrl(state.sourceUrl);
+  if (!u) {
+    return `<p class="feed-source">Datenquelle: ${escapeHtml(state.sourceUrl)}.</p>`;
+  }
 
   return `
     <p class="feed-source">
       Datenquelle:
-      <a href="${escapeHtml(state.sourceUrl)}" target="_blank" rel="noreferrer">
-        ${escapeHtml(state.sourceUrl)}
+      <a href="${escapeHtml(u)}" target="_blank" rel="noreferrer">
+        ${escapeHtml(u)}
       </a>
     </p>
   `;
@@ -597,6 +601,8 @@ function renderFeaturedOfficial(item) {
     `;
   }
 
+  const u = safeHttpUrl(item.url);
+
   return `
     <aside class="featured-official">
       <p class="section-kicker">Amtlicher Fokus</p>
@@ -605,7 +611,7 @@ function renderFeaturedOfficial(item) {
         ${escapeHtml(item.office)} · ${escapeHtml(item.dateLabel)} · ${escapeHtml(item.timeLabel)}
       </p>
       <p>${escapeHtml(item.fullText)}</p>
-      ${item.url ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noreferrer">Zur Originalquelle</a>` : ""}
+      ${u ? `<a href="${escapeHtml(u)}" target="_blank" rel="noreferrer">Zur Originalquelle</a>` : ""}
     </aside>
   `;
 }
@@ -700,8 +706,9 @@ function renderFeedItems(items) {
   }
 
   return items
-    .map(
-      (item) => `
+    .map((item) => {
+      const u = safeHttpUrl(item.url);
+      return `
         <article class="feed-card card-surface${item.isOfficial ? " feed-card--official" : ""}">
           <div class="feed-card__header">
             <div class="feed-card__meta">
@@ -722,12 +729,12 @@ function renderFeedItems(items) {
             <summary>Details anzeigen</summary>
             <div class="feed-card__body">
               <p>${formatParagraphs(item.fullText)}</p>
-              ${item.url ? `<a href="${escapeHtml(item.url)}" target="_blank" rel="noreferrer">Zur Publikation</a>` : ""}
+              ${u ? `<a href="${escapeHtml(u)}" target="_blank" rel="noreferrer">Zur Publikation</a>` : ""}
             </div>
           </details>
         </article>
-      `,
-    )
+      `;
+    })
     .join("");
 }
 
@@ -989,6 +996,11 @@ function escapeHtml(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
+}
+
+function safeHttpUrl(value) {
+  const s = String(value || "").trim();
+  return /^https?:\/\//i.test(s) ? s : "";
 }
 
 function formatParagraphs(value) {
