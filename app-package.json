@@ -52,6 +52,7 @@
   "instanz-config": {
     "seitentitel": {
       "label": "Seitentitel",
+      "category": "general",
       "hilfe": "Titel der App im Browser-Tab.",
       "default": "Presse-Feed",
       "format": {
@@ -62,6 +63,7 @@
     },
     "titel": {
       "label": "Titel",
+      "category": "general",
       "hilfe": "Titelzeile der App.",
       "default": "Presse-Feed",
       "format": {
@@ -72,6 +74,7 @@
     },
     "icon": {
       "label": "App-Icon",
+      "category": "general",
       "hilfe": "Wird links oben im Header angezeigt.",
       "default": "{{{odp.logo}}}",
       "format": {
@@ -83,6 +86,7 @@
     },
     "kontakt": {
       "label": "Kontakt",
+      "category": "contact-legal",
       "hilfe": "Kontaktinformationen im Menuepunkt Kontakt.",
       "format": {
         "typ": "markdown"
@@ -98,6 +102,7 @@
     },
     "beschreibung": {
       "label": "Beschreibung",
+      "category": "content",
       "hilfe": "Text fuer den Menuepunkt Ueber diese App.",
       "format": {
         "typ": "markdown"
@@ -123,6 +128,7 @@
     },
     "impressum": {
       "label": "Impressum",
+      "category": "contact-legal",
       "hilfe": "Text fuer den Menuepunkt Impressum.",
       "format": {
         "typ": "markdown"
@@ -139,6 +145,7 @@
     },
     "datenschutz": {
       "label": "Datenschutz",
+      "category": "contact-legal",
       "hilfe": "Text fuer den Menuepunkt Datenschutz.",
       "format": {
         "typ": "markdown"
@@ -155,6 +162,7 @@
     },
     "fusszeile": {
       "label": "Fusszeile",
+      "category": "contact-legal",
       "hilfe": "Text in der unteren Fusszeile.",
       "format": {
         "typ": "string",
@@ -165,6 +173,7 @@
     },
     "brandingCSS": {
       "label": "Branding CSS",
+      "category": "advanced",
       "hilfe": "Optionaler CSS-Code fuer kundenspezifisches Branding.",
       "format": {
         "typ": "string",
@@ -175,6 +184,7 @@
     },
     "brandingCSSFile": {
       "label": "Branding CSS Datei",
+      "category": "advanced",
       "hilfe": "Optionaler Pfad oder URL zu einer CSS-Datei fuer Branding.",
       "format": {
         "typ": "url"
@@ -184,6 +194,7 @@
     },
     "urlDaten": {
       "label": "URL zur Datensatzseite",
+      "category": "datasource",
       "hilfe": "Optionaler Link zur ODP-Datensatzseite oder Originalpublikation.",
       "format": {
         "typ": "url"
@@ -194,6 +205,7 @@
     },
     "apiurl": {
       "label": "URL zur Feed-Datenquelle",
+      "category": "datasource",
       "hilfe": "JSON-Endpunkt mit den Meldungen oder CKAN-Datastore-Antwort. Standardmaessig ist hier der CKAN-Beispieldatensatz hinterlegt.",
       "format": {
         "typ": "url",
@@ -205,6 +217,7 @@
     },
     "proxyAktiv": {
       "label": "ODAS-Proxy aktiv",
+      "category": "datasource",
       "hilfe": "Laedt die Datenquelle ueber den ODAS-Proxy. Empfohlen, wenn der CKAN-Download keine offenen CORS-Header liefert.",
       "default": "ja",
       "format": {
@@ -218,6 +231,7 @@
     },
     "weiterfuehrendeLinks": {
       "label": "Weiterfuehrende Links",
+      "category": "content",
       "hilfe": "Verwandte Datensaetze / Hintergrundquellen (HTML/Markdown). Leer = ausgeblendet.",
       "default": "<ul><li><a href='https://open-data-app-store.de' target='_blank'>Open Data App Store</a></li></ul>",
       "format": {
@@ -227,6 +241,7 @@
     },
     "datenquelleHinweis": {
       "label": "Methodik / Datenquelle-Hinweis",
+      "category": "content",
       "hilfe": "Herkunft, Erhebungsmethode und Limitierungen (HTML/Markdown). Leer = ausgeblendet.",
       "default": "<p>Der Feed buendelt Meldungen aus Social Media, amtlichen Veroeffentlichungen und Presseverteilern aus der konfigurierten CKAN-Quelle.</p><p>Angezeigt werden die in der Quelle gelieferten Meldungen; Aktualitaet und Vollstaendigkeit haengen vom Pflegestand der Datenquelle ab.</p>",
       "format": {
@@ -236,6 +251,7 @@
     },
     "datenStand": {
       "label": "Datenstand",
+      "category": "content",
       "hilfe": "Freitext-Hinweis zum Stand der Daten. Leer = ausgeblendet.",
       "default": "Stand: laufend aus der konfigurierten Quelle",
       "format": {
@@ -245,6 +261,7 @@
     },
     "kpiKontext1": {
       "label": "KPI-Erklaerung: Meldungen heute",
+      "category": "metrics",
       "hilfe": "Erklaertext unter dem KPI 'Meldungen heute'. Leer = ausgeblendet.",
       "default": "Anzahl der heute veroeffentlichten Meldungen.",
       "format": {
@@ -254,6 +271,7 @@
     },
     "kpiKontext2": {
       "label": "KPI-Erklaerung: Sichtbare Meldungen",
+      "category": "metrics",
       "hilfe": "Erklaertext unter dem KPI 'Sichtbare Meldungen'. Leer = ausgeblendet.",
       "default": "Meldungen nach der aktuell gewaehlten Filterung.",
       "format": {
@@ -263,6 +281,7 @@
     },
     "kpiKontext3": {
       "label": "KPI-Erklaerung: Aktive Stellen",
+      "category": "metrics",
       "hilfe": "Erklaertext unter dem KPI 'Aktive Stellen'. Leer = ausgeblendet.",
       "default": "Stellen mit mindestens einer Meldung im Datenbestand.",
       "format": {
@@ -272,6 +291,7 @@
     },
     "kpiKontext4": {
       "label": "KPI-Erklaerung: Amtliche Meldungen",
+      "category": "metrics",
       "hilfe": "Erklaertext unter dem KPI 'Amtliche Meldungen'. Leer = ausgeblendet.",
       "default": "Meldungen mit hervorgehobener amtlicher Prioritaet.",
       "format": {
@@ -281,6 +301,7 @@
     },
     "sprache": {
       "label": "Sprache der App",
+      "category": "general",
       "hilfe": "Aktuell wird Deutsch unterstuetzt.",
       "default": "de",
       "format": {
