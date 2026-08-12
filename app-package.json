@@ -3,7 +3,7 @@
   "app-entwickler-name": "ondics-gmbh",
   "name-in-url": "presse-feed",
   "name": "Presse-Feed",
-  "version": "1.16.0",
+  "version": "1.17.0",
   "odas-app-icon": "assets/odas-app-icon.svg",
   "app-icon": "assets/odas-app-icon.svg",
   "kurzbeschreibung": "Visueller Nachrichtenstream fuer Social Media, amtliche Veroeffentlichungen und Presseverteiler in einer gemeinsamen ODAS-App.",
@@ -223,8 +223,8 @@
       "format": {
         "typ": "dropdown",
         "optionen": [
-          "ja",
-          "nein"
+          "nein",
+          "ja"
         ]
       },
       "erforderlich": "ja"
