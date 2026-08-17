@@ -450,26 +450,26 @@ function renderFeedApp(configdata = {}, state) {
         </div>
         <div class="row g-3">
           <div class="col-12 col-md-6 col-xl-3">
-            <label class="form-label" for="feed-filter-channel">Kanal</label>
-            <select class="form-select" id="feed-filter-channel" data-filter="channel">
+            <label class="form-label" for="feed-filter-channel-${state.uid}">Kanal</label>
+            <select class="form-select" id="feed-filter-channel-${state.uid}" data-filter="channel">
               ${renderSelectOptions("Alle Kanäle", filterOptions.channels, state.filters.channel)}
             </select>
           </div>
           <div class="col-12 col-md-6 col-xl-3">
-            <label class="form-label" for="feed-filter-tag">Tag</label>
-            <select class="form-select" id="feed-filter-tag" data-filter="tag">
+            <label class="form-label" for="feed-filter-tag-${state.uid}">Tag</label>
+            <select class="form-select" id="feed-filter-tag-${state.uid}" data-filter="tag">
               ${renderSelectOptions("Alle Tags", filterOptions.tags, state.filters.tag)}
             </select>
           </div>
           <div class="col-12 col-md-6 col-xl-3">
-            <label class="form-label" for="feed-filter-office">Amt / Stelle</label>
-            <select class="form-select" id="feed-filter-office" data-filter="office">
+            <label class="form-label" for="feed-filter-office-${state.uid}">Amt / Stelle</label>
+            <select class="form-select" id="feed-filter-office-${state.uid}" data-filter="office">
               ${renderSelectOptions("Alle Stellen", filterOptions.offices, state.filters.office)}
             </select>
           </div>
           <div class="col-12 col-md-6 col-xl-3">
-            <label class="form-label" for="feed-filter-range">Zeitraum</label>
-            <select class="form-select" id="feed-filter-range" data-filter="range">
+            <label class="form-label" for="feed-filter-range-${state.uid}">Zeitraum</label>
+            <select class="form-select" id="feed-filter-range-${state.uid}" data-filter="range">
               ${renderRangeOptions(state.filters.range)}
             </select>
           </div>
