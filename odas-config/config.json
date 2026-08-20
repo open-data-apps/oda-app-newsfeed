@@ -6,19 +6,26 @@
   "brandingCSSFile": "",
   "beschreibung": [
     "<p>Der Presse-Feed bündelt aktuelle Veröffentlichungen aus Social Media, amtlichen Mitteilungen und Presseverteilern in einer gemeinsamen Ansicht.</p>",
-    "<p>So werden Nachrichtenströme leichter durchsuchbar und für verschiedene Zielgruppen zugänglich.</p>",
-    "<h3>Inhalte</h3>",
-    "<p>Die App verarbeitet Meldungen mit Datum, Uhrzeit, Kanal, Tags, zuständiger Stelle, Kurztext, Volltext und optionaler Publikations-URL.</p>",
-    "<p>Filter und Darstellung helfen dabei, Meldungen nach Thema, Kanal oder Zeitraum zu ordnen.</p>",
-    "<h3>Nutzung</h3>",
-    "<p>Durchsuchen Sie den Feed, filtern Sie nach relevanten Merkmalen und öffnen Sie bei Bedarf die Originalveröffentlichung. Die App zeigt die gelieferten Inhalte der konfigurierten Quelle.</p>",
-    "<h3>Für wen ist diese App?</h3>",
-    "<p>Die App richtet sich an Bürger:innen, Pressestellen, Öffentlichkeitsarbeit, Verwaltung und Medien, die Veröffentlichungen besser überblicken möchten. Besondere Datenkenntnisse sind für die Nutzung nicht erforderlich.</p>",
-    "<h3>Datenquelle</h3>",
-    "<p>Die Daten werden aus einer konfigurierten CKAN-Ressource mit normalisierten Meldungen geladen.</p>",
-    "<ul><li><strong>Open Data Portal:</strong> <a href=\"https://open-data-musterstadt.ckan.de\" target=\"_blank\" rel=\"noopener\">Open Data Musterstadt</a></li><li><strong>Datensatz/Ressource:</strong> <a href=\"https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe\" target=\"_blank\" rel=\"noopener\">Presse-Feed-Ressource</a></li><li><strong>Download:</strong> <a href=\"https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe/download/beispiel-datensatz-presse-feed.json\" target=\"_blank\" rel=\"noopener\">JSON-Beispieldatensatz</a></li></ul>",
-    "<h3>Open Data App Store</h3>",
-    "<p>Diese App ist für den Open Data App Store vorbereitet und kann mit kommunalen Presse-, News- oder Veröffentlichungsdaten konfiguriert werden.</p>"
+    "<p>Die App nutzt offene Meldungsdaten aus einer konfigurierten CKAN-Ressource und bereitet sie als chronologischen, filterbaren Nachrichtenstrom auf.</p>",
+    "<h2>Methodik</h2>",
+    "<p>Die App ruft den konfigurierten JSON-Endpunkt (<code>apiurl</code>) direkt ab – im Live-Betrieb optional über den ODAS-Proxy – und normalisiert die Datensätze im Browser.</p>",
+    "<p>Sie extrahiert Meldungen aus verschiedenen Payload-Formen (direktes Array, <code>result.records</code>, <code>records</code>, <code>items</code>, <code>data</code>, <code>results</code>, <code>entries</code>, <code>meldungen</code>) und normalisiert Datum/Uhrzeit, Kanal, zuständige Stelle, Tags, Kurztext, Volltext und Publikations-URL.</p>",
+    "<p>Meldungen werden zeitlich absteigend sortiert und lassen sich nach Kanal, Tag, Stelle und Zeitraum filtern; Kennzahlen und Detailansichten ergänzen den Überblick. Angezeigt werden die in der Quelle gelieferten Meldungen; Verfügbarkeit und Aktualität hängen vom Pflegestand der Quelle ab.</p>",
+    "<h2>Datenquelle</h2>",
+    "<p>Die Daten werden aus einer konfigurierten CKAN-Ressource mit normalisierten Meldungen bereitgestellt.</p>",
+    "<ul>",
+    "<li><strong>Open Data Portal:</strong> <a href=\"https://open-data-musterstadt.ckan.de\" target=\"_blank\">Open Data Musterstadt</a></li>",
+    "<li><strong>Datensatz/Ressource:</strong> <a href=\"https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe\" target=\"_blank\">Presse-Feed-Ressource</a></li>",
+    "<li><strong>Download/API-Endpunkt:</strong> <a href=\"https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe/download/beispiel-datensatz-presse-feed.json\" target=\"_blank\">JSON-Beispieldatensatz</a></li>",
+    "</ul>",
+    "<p>Angezeigt werden die in der Quelle vorhandenen Meldungen; Vollständigkeit und Aktualität hängen vom Pflegestand der Quelle ab.</p>",
+    "<h2>Open Data App</h2>",
+    "<p>Diese App ist eine Open Data App und kann im <a href=\"https://open-data-app-store.de/\" target=\"_blank\">Open Data App Store</a> betrieben werden. Sie ist Open Source und lässt sich mit kommunalen Presse-, News- oder Veröffentlichungsdaten konfigurieren.</p>",
+    "<ul>",
+    "<li><a href=\"https://open-data-app-store.de/\" target=\"_blank\">Open Data App Store</a> – die Plattform für Open Data Apps</li>",
+    "<li><a href=\"https://github.com/open-data-apps\" target=\"_blank\">Alle Open Data Apps auf GitHub</a> – die Organisation mit allen Apps</li>",
+    "<li><a href=\"https://github.com/open-data-apps/oda-app-newsfeed\" target=\"_blank\">oda-app-newsfeed</a> – das Repository dieser App</li>",
+    "</ul>"
   ],
   "kontakt": [
     "Fragen zur Demo? Schreiben Sie an <a href='mailto:info@ondics.de'>info@ondics.de</a>."
@@ -30,8 +37,8 @@
     "<a href='https://www.ondics.de/' target='_blank'>https://www.ondics.de/</a>"
   ],
   "datenschutz": [
-    "Diese App verarbeitet ausschliesslich die konfigurierten Veroeffentlichungsdaten und keine zusaetzlichen personenbezogenen Profildaten.",
-    "Massgeblich sind die Datenschutzangaben des jeweiligen Portalbetreibers.",
+    "Diese App verarbeitet ausschließlich die konfigurierten Veröffentlichungsdaten und keine zusätzlichen personenbezogenen Profildaten.",
+    "Maßgeblich sind die Datenschutzangaben des jeweiligen Portalbetreibers.",
     "",
     "<p>Alle für die Darstellung benötigten Programmbibliotheken werden mit der App ausgeliefert. Beim Aufruf werden dafür keine externen Server kontaktiert.</p>",
     "<p>Die angezeigten Daten werden über den ODAS-Proxy geladen. Die Anfrage an die Datenquelle stellt der ODAS-Server; Ihre IP-Adresse wird dorthin nicht übermittelt. Maßgeblich ist der Schalter <code>proxyAktiv</code> der Instanz-Konfiguration.</p>"
