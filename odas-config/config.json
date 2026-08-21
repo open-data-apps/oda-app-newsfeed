@@ -8,7 +8,7 @@
     "<p>Der Presse-Feed bündelt aktuelle Veröffentlichungen aus Social Media, amtlichen Mitteilungen und Presseverteilern in einer gemeinsamen Ansicht.</p>",
     "<p>Die App nutzt offene Meldungsdaten aus einer konfigurierten CKAN-Ressource und bereitet sie als chronologischen, filterbaren Nachrichtenstrom auf.</p>",
     "<h2>Methodik</h2>",
-    "<p>Die App ruft den konfigurierten JSON-Endpunkt (<code>apiurl</code>) direkt ab – im Live-Betrieb optional über den ODAS-Proxy – und normalisiert die Datensätze im Browser.</p>",
+    "<p>Die App ruft den konfigurierten JSON-Endpunkt (<code>apiurls.meldungen</code>) direkt ab – im Live-Betrieb optional über den ODAS-Proxy – und normalisiert die Datensätze im Browser.</p>",
     "<p>Sie extrahiert Meldungen aus verschiedenen Payload-Formen (direktes Array, <code>result.records</code>, <code>records</code>, <code>items</code>, <code>data</code>, <code>results</code>, <code>entries</code>, <code>meldungen</code>) und normalisiert Datum/Uhrzeit, Kanal, zuständige Stelle, Tags, Kurztext, Volltext und Publikations-URL.</p>",
     "<p>Meldungen werden zeitlich absteigend sortiert und lassen sich nach Kanal, Tag, Stelle und Zeitraum filtern; Kennzahlen und Detailansichten ergänzen den Überblick. Angezeigt werden die in der Quelle gelieferten Meldungen; Verfügbarkeit und Aktualität hängen vom Pflegestand der Quelle ab.</p>",
     "<h2>Datenquelle</h2>",
@@ -49,7 +49,13 @@
     "Presse-Feed Demo | ",
     "App-Entwickler: Ondics GmbH"
   ],
-  "apiurl": "https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe/download/beispiel-datensatz-presse-feed.json",
+  "apiurls": [
+    {
+      "name": "meldungen",
+      "label": "URL zur Feed-Datenquelle",
+      "url": "https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe/download/beispiel-datensatz-presse-feed.json"
+    }
+  ],
   "proxyAktiv": "nein",
   "weiterfuehrendeLinks": "<ul><li><a href='https://open-data-app-store.de' target='_blank'>Open Data App Store</a></li></ul>",
   "datenquelleHinweis": "<p>Der Feed buendelt Meldungen aus Social Media, amtlichen Veroeffentlichungen und Presseverteilern aus der konfigurierten CKAN-Quelle.</p><p>Angezeigt werden die in der Quelle gelieferten Meldungen; Aktualitaet und Vollstaendigkeit haengen vom Pflegestand der Datenquelle ab.</p>",

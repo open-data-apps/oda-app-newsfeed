@@ -72,7 +72,7 @@ Folgende Instanz-Parameter sind fuer die App relevant:
 | `titel` | Titel der App im Header | ja |
 | `seitentitel` | Titel im Browser-Tab | ja |
 | `icon` | Logo im Header | ja |
-| `apiurl` | JSON-Endpunkt fuer die Feed-Daten | ja |
+| `apiurls` | URLs zu Datenressourcen. Eintrag `meldungen`: JSON-Endpunkt fuer die Feed-Daten | ja (Eintrag `meldungen`) |
 | `proxyAktiv` | `ja`/`nein` fuer ODAS-Proxy statt Direktabruf | ja |
 | `urlDaten` | Optionaler Link zur Datensatzseite oder Quelle | nein |
 | `kontakt` | Kontaktseite | ja |

@@ -23,7 +23,7 @@ function createAppState(configdata, root) {
     allItems: [],
     now: new Date(),
     notice: "",
-    sourceUrl: cleanString(configdata.urlDaten || configdata.apiurl),
+    sourceUrl: cleanString(configdata.urlDaten || getOdasApiUrl(configdata, "meldungen")),
     root,
   };
 }
@@ -60,7 +60,7 @@ function app(configdata = {}, enclosingHtmlDivElement) {
 function addToHead() {}
 
 async function loadFeedItems(configdata, now) {
-  const apiurl = cleanString(configdata.apiurl);
+  const apiurl = getOdasApiUrl(configdata, "meldungen");
   const sourceUrl = cleanString(configdata.urlDaten || apiurl);
   const proxyEnabled = isOdasProxyEnabled(configdata);
 
@@ -164,6 +164,17 @@ async function fetchOdasResource(targetUrl, configdata = {}, fetchImpl = fetch) 
       `Direkter Datenabruf fehlgeschlagen (${error.message}). Bitte prüfen Sie die Daten-URL und die CORS-Freigabe der Datenquelle.`,
     );
   }
+}
+
+/**
+ * Löst eine benannte Datenressource aus configdata.apiurls auf.
+ * Neue apiurls-Form (typ: "array"); das frühere skalare apiurl wird nicht mehr gelesen.
+ * @returns {string} getrimmte URL, oder "" für den Zustand "keine Quelle konfiguriert"
+ */
+function getOdasApiUrl(configdata, name) {
+  const liste = Array.isArray(configdata && configdata.apiurls) ? configdata.apiurls : [];
+  const treffer = liste.find((eintrag) => eintrag && eintrag.name === name);
+  return String((treffer && treffer.url) || "").trim();
 }
 
 async function fetchOdasJson(targetUrl, configdata = {}, fetchImpl = fetch) {
@@ -543,7 +554,7 @@ function renderLoadingState(root, configdata = {}) {
           <p class="feed-eyebrow">Presse-Feed</p>
           <h2 class="feed-hero__title">Nachrichten werden geladen</h2>
           <p class="feed-hero__lead">
-            ${cleanString(configdata.apiurl)
+            ${getOdasApiUrl(configdata, "meldungen")
               ? isOdasProxyEnabled(configdata)
                 ? "Die konfigurierte Datenquelle wird über den ODAS-Proxy geladen und aufbereitet."
                 : "Die konfigurierte Datenquelle wird geladen und aufbereitet."

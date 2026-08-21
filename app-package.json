@@ -3,7 +3,7 @@
   "app-entwickler-name": "ondics-gmbh",
   "name-in-url": "presse-feed",
   "name": "Presse-Feed",
-  "version": "1.21.0",
+  "version": "1.22.0",
   "odas-app-icon": "assets/odas-app-icon.svg",
   "app-icon": "assets/odas-app-icon.svg",
   "kurzbeschreibung": "Visueller Nachrichtenstream fuer Social Media, amtliche Veroeffentlichungen und Presseverteiler in einer gemeinsamen ODAS-App.",
@@ -15,7 +15,7 @@
     "",
     "## Methodik",
     "",
-    "Die App ruft den konfigurierten JSON-Endpunkt (`apiurl`) direkt ab – im Live-Betrieb optional über den ODAS-Proxy – und normalisiert die Datensätze im Browser.",
+    "Die App ruft den konfigurierten JSON-Endpunkt (`apiurls.meldungen`) direkt ab – im Live-Betrieb optional über den ODAS-Proxy – und normalisiert die Datensätze im Browser.",
     "",
     "Sie extrahiert Meldungen aus verschiedenen Payload-Formen (direktes Array, `result.records`, `records`, `items`, `data`, `results`, `entries`, `meldungen`) und normalisiert Datum/Uhrzeit, Kanal, zuständige Stelle, Tags, Kurztext, Volltext und Publikations-URL.",
     "",
@@ -131,7 +131,7 @@
         "",
         "## Methodik",
         "",
-        "Die App ruft den konfigurierten JSON-Endpunkt (`apiurl`) direkt ab – im Live-Betrieb optional über den ODAS-Proxy – und normalisiert die Datensätze im Browser.",
+        "Die App ruft den konfigurierten JSON-Endpunkt (`apiurls.meldungen`) direkt ab – im Live-Betrieb optional über den ODAS-Proxy – und normalisiert die Datensätze im Browser.",
         "",
         "Sie extrahiert Meldungen aus verschiedenen Payload-Formen (direktes Array, `result.records`, `records`, `items`, `data`, `results`, `entries`, `meldungen`) und normalisiert Datum/Uhrzeit, Kanal, zuständige Stelle, Tags, Kurztext, Volltext und Publikations-URL.",
         "",
@@ -244,17 +244,24 @@
       "beispiel": "",
       "erforderlich": "nein"
     },
-    "apiurl": {
-      "label": "URL zur Feed-Datenquelle",
+    "apiurls": {
+      "label": "URLs zu Datenressourcen",
       "category": "datenherkunft",
-      "hilfe": "JSON-Endpunkt mit den Meldungen oder CKAN-Datastore-Antwort. Standardmaessig ist hier der CKAN-Beispieldatensatz hinterlegt.",
+      "hilfe": "Direkter Download-, Datei- oder API-Endpunkt der tatsächlich verwendeten Datenquelle(n). Mehrere Einträge möglich.",
+      "typ": "array",
       "format": {
         "typ": "url",
-        "laenge": 255
+        "laenge": 500
       },
-      "default": "https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe/download/beispiel-datensatz-presse-feed.json",
-      "beispiel": "",
-      "erforderlich": "ja"
+      "urls": [
+        {
+          "name": "meldungen",
+          "label": "URL zur Feed-Datenquelle",
+          "default": "https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe/download/beispiel-datensatz-presse-feed.json",
+          "beispiel": "",
+          "erforderlich": "ja"
+        }
+      ]
     },
     "proxyAktiv": {
       "label": "ODAS-Proxy aktiv",
