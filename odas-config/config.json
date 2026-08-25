@@ -43,7 +43,7 @@
     "<p>Alle für die Darstellung benötigten Programmbibliotheken werden mit der App ausgeliefert. Beim Aufruf werden dafür keine externen Server kontaktiert.</p>",
     "<p>Die angezeigten Daten werden über den ODAS-Proxy geladen. Die Anfrage an die Datenquelle stellt der ODAS-Server; Ihre IP-Adresse wird dorthin nicht übermittelt. Maßgeblich ist der Schalter <code>proxyAktiv</code> der Instanz-Konfiguration.</p>"
   ],
-  "urlDaten": "https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced/resource/93a14563-e19c-4336-888b-8c788a977afe",
+  "urlDaten": "https://open-data-musterstadt.ckan.de/dataset/3ad34553-4b71-47c4-833c-5d75f2b2aced",
   "fusszeile": [
     "(C) Copyright 2026 | ",
     "Presse-Feed Demo | ",
