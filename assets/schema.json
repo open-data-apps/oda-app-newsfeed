@@ -1,44 +1,79 @@
 {
+  "$schema": "https://frictionlessdata.io/schemas/table-schema.json",
+  "name": "oda-app-newsfeed",
+  "title": "Newsfeed",
   "fields": [
     {
       "name": "datum",
       "type": "date",
-      "description": "Datum der Veroeffentlichung"
+      "description": "Datum der Veroeffentlichung",
+      "title": "Datum",
+      "constraints": {
+        "required": false
+      }
     },
     {
       "name": "uhrzeit",
       "type": "time",
-      "description": "Uhrzeit der Veroeffentlichung"
+      "description": "Uhrzeit der Veroeffentlichung",
+      "title": "Uhrzeit",
+      "constraints": {
+        "required": false
+      }
     },
     {
       "name": "kanal",
       "type": "string",
-      "description": "Vertriebskanal der Meldung, z. B. Social Media, Amtlich oder Presseverteiler"
+      "description": "Vertriebskanal der Meldung, z. B. Social Media, Amtlich oder Presseverteiler",
+      "title": "Kanal",
+      "constraints": {
+        "required": false
+      }
     },
     {
       "name": "schlagworte",
       "type": "array",
-      "description": "Thematische Tags oder Schlagworte zur Meldung"
+      "description": "Thematische Tags oder Schlagworte zur Meldung",
+      "title": "Schlagworte",
+      "constraints": {
+        "required": false
+      }
     },
     {
       "name": "amt",
       "type": "string",
-      "description": "Veroeffentlichende Stelle oder Amt"
+      "description": "Veroeffentlichende Stelle oder Amt",
+      "title": "Amt",
+      "constraints": {
+        "required": false
+      }
     },
     {
       "name": "kurztext",
       "type": "string",
-      "description": "Kurzbeschreibung fuer die kompakte Feed-Ansicht"
+      "description": "Kurzbeschreibung fuer die kompakte Feed-Ansicht",
+      "title": "Kurztext",
+      "constraints": {
+        "required": false
+      }
     },
     {
       "name": "text",
       "type": "string",
-      "description": "Volltext oder ausfuehrliche Beschreibung der Veroeffentlichung"
+      "description": "Volltext oder ausfuehrliche Beschreibung der Veroeffentlichung",
+      "title": "Text",
+      "constraints": {
+        "required": false
+      }
     },
     {
       "name": "url",
       "type": "string",
-      "description": "Optionale URL zur Originalpublikation"
+      "description": "Optionale URL zur Originalpublikation",
+      "title": "URL",
+      "constraints": {
+        "required": false
+      }
     }
   ]
 }

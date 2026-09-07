@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.25.2 - 2026-09-07
+- **FIX:** Frictionless-Härtung: `$schema` + Titel ergänzt; totes Slot-Beispiel (404) auf funktionierenden Default angeglichen. JSON-Pfad ist Validator-blind — Key-Match (8/8) manuell verifiziert, siehe REPORT.
+
 ## 1.25.1 - 2026-09-01
 
 - **FIX:** `beschreibung` korrigiert – Drei-Stufen-Block nutzt jetzt `{{{appinstanz.urlDaten}}}` (Datensatz) + `{{{appinstanz.apiurls.1}}}` (Ressource) statt `{{{urlDaten}}}/resource/…`; lokale `odas-config` gespiegelt (Inventur 2026-09-01).
