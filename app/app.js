@@ -78,6 +78,12 @@ async function loadFeedItems(configdata, now) {
     // zeigt die App den Info-Zustand statt erfundener Beispieldaten.
     throw new Error("Keine Datenquelle konfiguriert.");
   }
+  // Variante A (F-92): Typprüfung vor dem ersten Fetch (urlDaten ist nur
+  // Anzeige-Kontext, geladen wird ausschlie0lich apiurl).
+  const nfTypWarn = validateUrlTypErwartung(apiurl, "ckan-dl");
+  if (nfTypWarn) {
+    throw new Error(nfTypWarn);
+  }
 
   const payload = await fetchOdasJson(apiurl, configdata);
   const records = extractFeedRecords(payload);
