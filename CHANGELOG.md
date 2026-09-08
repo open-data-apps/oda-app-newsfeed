@@ -1,7 +1,9 @@
 # Changelog
 
-## 1.26.0 - 2026-09-08
+## 1.26.1 - 2026-09-08
 - **FIX:** Variante-A-Typprüfung (F-92): ckan-dl-Erwartung vor dem ersten Fetch geprüft; Fehler laufen weiter über `renderOdasFehler` (1.26.0 -> 1.26.1).
+
+## 1.26.0 - 2026-09-08
 - **CHG:** Demo-Modus entfernt (F-99): ohne konfigurierte `apiurls`-Quelle zeigt die App den Info-Zustand „Es ist keine Datenquelle konfiguriert.“ statt erfundener Beispieldaten; `createDemoFeedRecords` und der `dataOrigin: "demo"`-Zweig entfallen.
 
 ## 1.25.2 - 2026-09-07
