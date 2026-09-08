@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.26.0 - 2026-09-08
+- **CHG:** Demo-Modus entfernt (F-99): ohne konfigurierte `apiurls`-Quelle zeigt die App den Info-Zustand „Es ist keine Datenquelle konfiguriert.“ statt erfundener Beispieldaten; `createDemoFeedRecords` und der `dataOrigin: "demo"`-Zweig entfallen.
+
 ## 1.25.2 - 2026-09-07
 - **FIX:** Frictionless-Härtung: `$schema` + Titel ergänzt; totes Slot-Beispiel (404) auf funktionierenden Default angeglichen. JSON-Pfad ist Validator-blind — Key-Match (8/8) manuell verifiziert, siehe REPORT.
 

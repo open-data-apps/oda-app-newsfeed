@@ -53,6 +53,15 @@ function app(configdata = {}, enclosingHtmlDivElement) {
         return;
       }
 
+      if (/Keine Datenquelle konfiguriert/i.test(String((error && error.message) || error))) {
+        renderOdasFehler(enclosingHtmlDivElement, error, {
+          url: getOdasApiUrl(configdata, "meldungen"),
+          label: "Presse-/Meldungsquelle",
+          erwarteterTyp: "ckan-dl",
+        });
+        return;
+      }
+
       enclosingHtmlDivElement.innerHTML = renderFatalError(error);
     });
 }
@@ -65,13 +74,9 @@ async function loadFeedItems(configdata, now) {
   const proxyEnabled = isOdasProxyEnabled(configdata);
 
   if (!apiurl) {
-    return {
-      items: sortFeedItems(createDemoFeedRecords(now).map(normalizeFeedItem)),
-      notice:
-        "Es ist keine externe Datenquelle konfiguriert. Die App zeigt deshalb Beispieldaten.",
-      sourceUrl,
-      dataOrigin: "demo",
-    };
+    // Kein Demo-Modus (Nutzerentscheidung 2026-09-08): ohne konfigurierte Quelle
+    // zeigt die App den Info-Zustand statt erfundener Beispieldaten.
+    throw new Error("Keine Datenquelle konfiguriert.");
   }
 
   const payload = await fetchOdasJson(apiurl, configdata);
@@ -1195,104 +1200,12 @@ function formatParagraphs(value) {
   return escapeHtml(value).replace(/\n/g, "<br>");
 }
 
-function createDemoFeedRecords(referenceNow = new Date()) {
-  const isoDate = (daysAgo) => {
-    const date = new Date(referenceNow);
-    date.setDate(date.getDate() - daysAgo);
-    return formatIsoDate(date);
-  };
-
-  return [
-    {
-      datum: isoDate(0),
-      uhrzeit: "14:30",
-      kanal: "Amtliche Veröffentlichungen",
-      schlagworte: ["Verkehr", "Innenstadt"],
-      amt: "Tiefbauamt",
-      kurztext: "Neue Verkehrsführung rund um die Musterbrücke",
-      text: "Wegen Bauarbeiten gilt ab morgen eine geänderte Verkehrsführung rund um die Musterbrücke. Die Umleitung ist ausgeschildert und betrifft insbesondere den Berufsverkehr.",
-      url: "https://example.org/amtlich/musterbruecke",
-    },
-    {
-      datum: isoDate(0),
-      uhrzeit: "12:10",
-      kanal: "Social Media",
-      schlagworte: ["Veranstaltung", "Innenstadt"],
-      amt: "Pressestelle",
-      kurztext: "Livestream zur Bürgerfragestunde heute um 18 Uhr",
-      text: "Die Stadt informiert heute um 18 Uhr live über aktuelle Projekte und beantwortet Fragen aus der Bevölkerung direkt im Stream.",
-      url: "https://example.org/social/buergerfragestunde",
-    },
-    {
-      datum: isoDate(0),
-      uhrzeit: "09:00",
-      kanal: "Presseverteiler",
-      schlagworte: ["Bildung", "Jugend"],
-      amt: "Schulverwaltungsamt",
-      kurztext: "Start des Sommerferienprogramms angekündigt",
-      text: "Das Sommerferienprogramm bietet Workshops, Sportangebote und Ferienbetreuung an mehreren Standorten im Stadtgebiet.",
-      url: "https://example.org/presse/sommerferienprogramm",
-    },
-    {
-      datum: isoDate(1),
-      uhrzeit: "16:45",
-      kanal: "Amtliche Veröffentlichungen",
-      schlagworte: ["Sicherheit", "Stadtfest"],
-      amt: "Ordnungsamt",
-      kurztext: "Sicherheitskonzept für das Stadtfest veröffentlicht",
-      text: "Zum Stadtfest werden zusätzliche Sperrzonen, Rettungswege und Informationspunkte eingerichtet. Besucherinnen und Besucher werden gebeten, frühzeitig anzureisen.",
-      url: "https://example.org/amtlich/stadtfest",
-    },
-    {
-      datum: isoDate(2),
-      uhrzeit: "11:20",
-      kanal: "Social Media",
-      schlagworte: ["Klima", "Mobilität"],
-      amt: "Klimaschutzstelle",
-      kurztext: "Mitmachaktion zur Fahrradwoche gestartet",
-      text: "Die Stadt sammelt Lieblingsrouten, Wünsche und Hinweise rund um das Radwegenetz. Beiträge können bis Ende der Woche eingereicht werden.",
-      url: "https://example.org/social/fahrradwoche",
-    },
-    {
-      datum: isoDate(4),
-      uhrzeit: "08:15",
-      kanal: "Presseverteiler",
-      schlagworte: ["Kultur", "Innenstadt"],
-      amt: "Kulturamt",
-      kurztext: "Open-Air-Reihe belebt den Marktplatz",
-      text: "An vier Abenden finden kostenlose Konzerte auf dem Marktplatz statt. Das Programm richtet sich an Familien und junge Erwachsene.",
-      url: "https://example.org/presse/open-air-reihe",
-    },
-    {
-      datum: isoDate(8),
-      uhrzeit: "10:00",
-      kanal: "Amtliche Veröffentlichungen",
-      schlagworte: ["Bauen", "Beteiligung"],
-      amt: "Stadtplanungsamt",
-      kurztext: "Bebauungsplan fuer das Hafenquartier ausgelegt",
-      text: "Der Bebauungsplan fuer das Hafenquartier liegt bis Ende des Monats aus. Stellungnahmen koennen digital oder vor Ort eingereicht werden.",
-      url: "https://example.org/amtlich/hafenquartier",
-    },
-    {
-      datum: isoDate(15),
-      uhrzeit: "13:40",
-      kanal: "Presseverteiler",
-      schlagworte: ["Soziales", "Gesundheit"],
-      amt: "Sozialamt",
-      kurztext: "Hitzehilfe startet mit erweiterten Oeffnungszeiten",
-      text: "Die kommunalen Anlaufstellen bieten ab sofort laengere Oeffnungszeiten, Trinkwasser und Beratung fuer besonders belastete Personengruppen an.",
-      url: "https://example.org/presse/hitzehilfe",
-    },
-  ];
-}
-
 const exportedApi = {
   addToHead,
   app,
   buildLagebild,
   buildOdasProxyEndpoint,
   canonicalizeChannel,
-  createDemoFeedRecords,
   extractFeedRecords,
   extractPathFromUrl,
   fetchOdasResource,
