@@ -13,7 +13,22 @@ const CHANNEL_LABELS = {
   "Social Media": "Social",
 };
 
-const newsfeedContainerTokens = new WeakMap();
+// NF-B1: Map statt WeakMap, damit onPageLeave die Tokens invalidieren kann
+// (eine WeakMap ist nicht iterierbar). Der Token trennt Instanzen im selben
+// Container; das Leeren im Hook deckt zusaetzlich den Seitenwechsel ab — ohne
+// das schrieb ein spaet aufloesender Feed-Abruf ueber state.root in das
+// geteilte #main-content, also in die dann sichtbare andere Seite.
+// Eintrag: { token, controller }.
+const newsfeedContainerTokens = new Map();
+
+function onPageLeave() {
+  newsfeedContainerTokens.forEach(function (eintrag) {
+    try {
+      if (eintrag && eintrag.controller) eintrag.controller.abort();
+    } catch (_e) {}
+  });
+  newsfeedContainerTokens.clear();
+}
 
 function createAppState(configdata, root) {
   return {
@@ -31,13 +46,15 @@ function createAppState(configdata, root) {
 function app(configdata = {}, enclosingHtmlDivElement) {
   const state = createAppState(configdata, enclosingHtmlDivElement);
   const token = {};
-  newsfeedContainerTokens.set(enclosingHtmlDivElement, token);
+  const controller = new AbortController();
+  newsfeedContainerTokens.set(enclosingHtmlDivElement, { token, controller });
 
   renderLoadingState(enclosingHtmlDivElement, configdata);
 
-  loadFeedItems(configdata, state.now)
+  loadFeedItems(configdata, state.now, controller.signal)
     .then((result) => {
-      if (newsfeedContainerTokens.get(enclosingHtmlDivElement) !== token) {
+      const eintrag = newsfeedContainerTokens.get(enclosingHtmlDivElement);
+      if (!eintrag || eintrag.token !== token) {
         return;
       }
 
@@ -49,7 +66,8 @@ function app(configdata = {}, enclosingHtmlDivElement) {
       renderFeedApp(configdata, state);
     })
     .catch((error) => {
-      if (newsfeedContainerTokens.get(enclosingHtmlDivElement) !== token) {
+      const eintrag = newsfeedContainerTokens.get(enclosingHtmlDivElement);
+      if (!eintrag || eintrag.token !== token) {
         return;
       }
 
@@ -66,9 +84,11 @@ function app(configdata = {}, enclosingHtmlDivElement) {
     });
 }
 
-function addToHead() {}
+function addToHead() {
+  return ``;
+}
 
-async function loadFeedItems(configdata, now) {
+async function loadFeedItems(configdata, now, signal) {
   const apiurl = getOdasApiUrl(configdata, "meldungen");
   const sourceUrl = cleanString(configdata.urlDaten || apiurl);
   const proxyEnabled = isOdasProxyEnabled(configdata);
@@ -85,7 +105,7 @@ async function loadFeedItems(configdata, now) {
     throw new Error(nfTypWarn);
   }
 
-  const payload = await fetchOdasJson(apiurl, configdata);
+  const payload = await fetchOdasJson(apiurl, configdata, fetch, { signal });
   const records = extractFeedRecords(payload);
   const items = sortFeedItems(
     records
@@ -170,18 +190,21 @@ async function fetchViaOdasProxy(targetUrl, options = {}) {
   return proxyData.content;
 }
 
-async function fetchOdasResource(targetUrl, configdata = {}, fetchImpl = fetch) {
+async function fetchOdasResource(targetUrl, configdata = {}, fetchImpl = fetch, options = {}) {
   if (isOdasProxyEnabled(configdata)) {
-    return fetchViaOdasProxy(targetUrl, fetchImpl);
+    return fetchViaOdasProxy(targetUrl, options);
   }
 
   try {
-    const response = await fetchImpl(targetUrl);
+    const response = await fetchImpl(targetUrl, {
+      signal: options && options.signal ? options.signal : undefined,
+    });
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}`);
     }
     return response.text();
   } catch (error) {
+    if (error && error.name === "AbortError") throw error;
     throw new Error(
       `Direkter Datenabruf fehlgeschlagen (${error.message}). Bitte prüfen Sie die Daten-URL und die CORS-Freigabe der Datenquelle.`,
     );
@@ -199,8 +222,8 @@ function getOdasApiUrl(configdata, name) {
   return String((treffer && treffer.url) || "").trim();
 }
 
-async function fetchOdasJson(targetUrl, configdata = {}, fetchImpl = fetch) {
-  const rawContent = await fetchOdasResource(targetUrl, configdata, fetchImpl);
+async function fetchOdasJson(targetUrl, configdata = {}, fetchImpl = fetch, options = {}) {
+  const rawContent = await fetchOdasResource(targetUrl, configdata, fetchImpl, options);
   try {
     return JSON.parse(rawContent);
   } catch (_error) {
@@ -357,15 +380,6 @@ function renderOdasFehler(container, error, kontext = {}) {
   const titel = kontext.leer ? "Keine Datensätze gefunden." : info.titel;
   const alertClass = kontext.leer ? "alert-info" : info.alertClass;
   container.innerHTML = `<div class="alert ${alertClass}" role="alert"><strong>${escapeHtml(titel)}</strong><p class="mb-1">${escapeHtml(info.hinweis)}</p>${urlZeile}<details class="small"><summary>Details</summary><code>${escapeHtml(info.detail || String(error))}</code></details></div>`;
-}
-
-function isLeerErgebnis(json) {
-  if (!json) return true;
-  if (Array.isArray(json) && json.length === 0) return true;
-  if (Array.isArray(json.records) && json.records.length === 0) return true;
-  if (Array.isArray(json.results) && json.results.length === 0) return true;
-  if (json.result && Array.isArray(json.result.records) && json.result.records.length === 0) return true;
-  return false;
 }
 
 
