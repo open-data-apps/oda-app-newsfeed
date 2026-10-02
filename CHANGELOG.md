@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.26.3 - 2026-10-02
+- ENH: Verwendete ODAS-Dienste in `odas-services` deklariert.
+
 ## 1.26.2 - 2026-09-10
 - **FIX (NF-B1):** Die App hatte keinen `onPageLeave`. Der Container-Token trennte nur Instanzen im selben Container; bei einem **Seitenwechsel** blieb er gültig, sodass ein spät auflösender Feed-Abruf über `state.root` in das geteilte `#main-content` schrieb — also in die dann sichtbare andere Seite. Der Token-Speicher ist jetzt eine `Map` (statt `WeakMap`, damit iterierbar), und `onPageLeave()` leert sie: die bestehende Token-Prüfung schlägt danach von selbst fehl.
 - **FIX (NF-B2):** `AbortController` je Instanz; der Feed-Abruf läuft mit `signal` und wird beim Seitenwechsel abgebrochen. `fetchOdasResource`/`fetchOdasJson` nehmen das Signal als **viertes** Argument (das dritte bleibt der bisherige `fetchImpl`-Vertrag für Tests) und werfen `AbortError` unverpackt.
