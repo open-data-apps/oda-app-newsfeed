@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.26.5 - 2026-10-13
+- REFACTOR: Ungenutzten Parameter von parseDateValue entfernt.
+
 ## 1.26.4 - 2026-10-08
 - FIX: F-112: Unbekannte Antwortstrukturen als Formatfehler statt als leere Daten anzeigen; bekannte leere Listen bleiben gültig.
 - FIX: F-137: Fehlende/ungültige Veröffentlichungsdaten und ungültige Uhrzeiten nicht als Heute/09:00 erfinden; ausgelassene Meldungen sichtbar zählen.

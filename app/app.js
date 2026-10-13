@@ -1034,7 +1034,7 @@ function normalizeDateTime(dateValue, timeValue, referenceNow = new Date()) {
   };
 }
 
-function parseDateValue(dateValue, referenceNow = new Date()) {
+function parseDateValue(dateValue) {
   if (dateValue instanceof Date) {
     return Number.isNaN(dateValue.getTime()) ? null : new Date(dateValue.getTime());
   }
