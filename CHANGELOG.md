@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.26.4 - 2026-10-08
+- FIX: F-112: Unbekannte Antwortstrukturen als Formatfehler statt als leere Daten anzeigen; bekannte leere Listen bleiben gültig.
+- FIX: F-137: Fehlende/ungültige Veröffentlichungsdaten und ungültige Uhrzeiten nicht als Heute/09:00 erfinden; ausgelassene Meldungen sichtbar zählen.
+- FIX: F-137: Gültiges Datum ohne Uhrzeit ohne Uhrzeitlabel anzeigen; echte ISO-Zeitpunkte einschließlich Zeitumstellung/Millisekunden erhalten.
+- FIX: F-137 (Nachbesserung): Uhrzeiten wie „10:00 Uhr“ und deutsche Kurzdaten wie „1.2.2026“ werden korrekt gelesen; ohne Uhrzeit kein hängender Trenner, Hinweistext mit Einzahl/Mehrzahl.
+
 ## 1.26.3 - 2026-10-02
 - ENH: Verwendete ODAS-Dienste in `odas-services` deklariert.
 

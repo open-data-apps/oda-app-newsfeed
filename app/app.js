@@ -113,11 +113,13 @@ async function loadFeedItems(configdata, now, signal) {
       .filter(Boolean),
   );
 
+  const skipped = records.length - items.length;
   return {
     items,
-    notice: items.length
-      ? ""
-      : "Die konfigurierte Datenquelle wurde geladen, enthält aber aktuell keine Meldungen.",
+    // F-137: Ungültige Veröffentlichungsangaben nicht als Heute erfinden oder still verlieren.
+    notice: skipped > 0
+      ? `${skipped} ${skipped === 1 ? "Meldung" : "Meldungen"} ohne gültige Datums-/Zeitangabe ${skipped === 1 ? "wurde" : "wurden"} ausgelassen.`
+      : items.length ? "" : "Die konfigurierte Datenquelle wurde geladen, enthält aber aktuell keine Meldungen.",
     sourceUrl,
     dataOrigin: proxyEnabled ? "proxy" : "remote",
   };
@@ -393,8 +395,8 @@ function extractFeedRecords(payload) {
     return payload;
   }
 
-  if (!payload || typeof payload !== "object") {
-    return [];
+  if (!payload || typeof payload !== "object" || payload.success === false) {
+    throw new Error("Unbekanntes Antwortformat: Meldungsliste erwartet.");
   }
 
   if (Array.isArray(payload.records)) {
@@ -412,7 +414,8 @@ function extractFeedRecords(payload) {
     }
   }
 
-  return [];
+  // F-112: Kein bekannter Listencontainer, daher kein gültiger Leerbestand.
+  throw new Error("Unbekanntes Antwortformat: Meldungsliste erwartet.");
 }
 
 function normalizeFeedItem(rawItem = {}, index = 0, referenceNow = new Date()) {
@@ -425,11 +428,12 @@ function normalizeFeedItem(rawItem = {}, index = 0, referenceNow = new Date()) {
       "published_at",
       "publishedAt",
       "created",
-    ]) || formatIsoDate(referenceNow);
+    ]) || "";
   const rawTime =
     getFirstValue(rawItem, ["uhrzeit", "time", "zeit", "published_time"]) ||
     "";
   const dateInfo = normalizeDateTime(rawDate, rawTime, referenceNow);
+  if (!dateInfo) return null;
   const channel = canonicalizeChannel(
     getFirstValue(rawItem, ["kanal", "channel", "quelle", "medium"]) ||
       "Presseverteiler",
@@ -821,7 +825,7 @@ function renderFeaturedOfficial(item) {
       <p class="section-kicker">Amtlicher Fokus</p>
       <h3>${escapeHtml(item.summary)}</h3>
       <p class="featured-official__meta">
-        ${escapeHtml(item.office)} · ${escapeHtml(item.dateLabel)} · ${escapeHtml(item.timeLabel)}
+        ${escapeHtml(item.office)} · ${escapeHtml(formatNewsStamp(item))}
       </p>
       <p>${escapeHtml(item.fullText)}</p>
       ${u ? `<a href="${escapeHtml(u)}" target="_blank" rel="noreferrer">Zur Originalquelle</a>` : ""}
@@ -926,7 +930,7 @@ function renderFeedItems(items) {
           <div class="feed-card__header">
             <div class="feed-card__meta">
               <span class="channel-badge ${getChannelClass(item.channel)}">${escapeHtml(CHANNEL_LABELS[item.channel] || item.channel)}</span>
-              <span class="feed-card__stamp">${escapeHtml(item.dateLabel)} · ${escapeHtml(item.timeLabel)}</span>
+              <span class="feed-card__stamp">${escapeHtml(formatNewsStamp(item))}</span>
             </div>
             <strong class="feed-card__office">${escapeHtml(item.office)}</strong>
           </div>
@@ -1005,67 +1009,69 @@ function getFirstValue(source, keys) {
 }
 
 function normalizeDateTime(dateValue, timeValue, referenceNow = new Date()) {
-  const timeParts = normalizeTimeParts(timeValue);
-  const parsedDate = parseDateValue(dateValue, referenceNow);
+  const parsedDate = parseDateValue(dateValue);
+  let timeParts = normalizeTimeParts(timeValue);
+  if (!parsedDate || !timeParts) return null;
+  // Ein echter ISO-Zeitpunkt enthält die Uhrzeit bereits; kein 09:00-Fallback.
+  const hasInstant = !timeParts.known && (dateValue instanceof Date || /^\d{4}-\d{2}-\d{2}T/.test(cleanString(dateValue)));
+  if (hasInstant) {
+    timeParts = { hours: parsedDate.getHours(), minutes: parsedDate.getMinutes(), seconds: parsedDate.getSeconds(), known: true };
+  }
   const year = parsedDate.getFullYear();
   const month = padNumber(parsedDate.getMonth() + 1);
   const day = padNumber(parsedDate.getDate());
   const hours = padNumber(timeParts.hours);
   const minutes = padNumber(timeParts.minutes);
+  const seconds = padNumber(timeParts.seconds);
+  const timestamp = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 
   return {
-    timestamp: `${year}-${month}-${day}T${hours}:${minutes}:00`,
-    timestampMs: new Date(`${year}-${month}-${day}T${hours}:${minutes}:00`).getTime(),
+    timestamp: hasInstant ? parsedDate.toISOString() : timestamp,
+    timestampMs: hasInstant ? parsedDate.getTime() : new Date(timestamp).getTime(),
     dateLabel: `${day}.${month}.${year}`,
-    timeLabel: `${hours}:${minutes}`,
+    timeLabel: timeParts.known ? `${hours}:${minutes}` : "",
     dateKey: `${year}-${month}-${day}`,
   };
 }
 
 function parseDateValue(dateValue, referenceNow = new Date()) {
-  if (dateValue instanceof Date && !Number.isNaN(dateValue.getTime())) {
-    return new Date(dateValue.getTime());
+  if (dateValue instanceof Date) {
+    return Number.isNaN(dateValue.getTime()) ? null : new Date(dateValue.getTime());
   }
-
   const normalized = cleanString(dateValue);
-  if (!normalized) {
-    return normalizeReferenceDate(referenceNow);
+  if (!normalized) return null; // F-137: Kein künstlicher aktueller Tag.
+  const iso = /^(\d{4})-(\d{2})-(\d{2})(?:T.*)?$/.exec(normalized);
+  const german = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec(normalized);
+  if (iso || german) {
+    const year = Number(iso ? iso[1] : german[3]);
+    const month = Number(iso ? iso[2] : german[2]);
+    const day = Number(iso ? iso[3] : german[1]);
+    const date = new Date(year, month - 1, day);
+    if (date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return null;
+    if (iso && normalized.includes("T")) {
+      const instant = new Date(normalized);
+      return Number.isNaN(instant.getTime()) ? null : instant;
+    }
+    return date;
   }
-
-  if (/^\d{4}-\d{2}-\d{2}/.test(normalized)) {
-    const [datePart] = normalized.split("T");
-    const [year, month, day] = datePart.split("-").map(Number);
-    return new Date(year, month - 1, day);
-  }
-
-  if (/^\d{2}\.\d{2}\.\d{4}$/.test(normalized)) {
-    const [day, month, year] = normalized.split(".").map(Number);
-    return new Date(year, month - 1, day);
-  }
-
   const parsed = new Date(normalized);
-  if (!Number.isNaN(parsed.getTime())) {
-    return parsed;
-  }
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+}
 
-  return normalizeReferenceDate(referenceNow);
+// Datum und, falls bekannt, Uhrzeit; ohne Uhrzeit kein hängender Trenner.
+function formatNewsStamp(item) {
+  return item.timeLabel ? `${item.dateLabel} · ${item.timeLabel}` : item.dateLabel;
 }
 
 function normalizeTimeParts(timeValue) {
   const normalized = cleanString(timeValue);
-  if (!normalized) {
-    return { hours: 9, minutes: 0 };
-  }
-
-  const match = normalized.match(/(\d{1,2}):(\d{2})/);
-  if (!match) {
-    return { hours: 9, minutes: 0 };
-  }
-
-  return {
-    hours: Number(match[1]),
-    minutes: Number(match[2]),
-  };
+  // Bei einem reinen Datum dient Mitternacht nur zur Sortierung, ohne Uhrzeitlabel.
+  if (!normalized) return { hours: 0, minutes: 0, seconds: 0, known: false };
+  const match = /^(\d{1,2}):(\d{2})(?::(\d{2}))?(?:\s*Uhr)?$/i.exec(normalized);
+  if (!match) return null;
+  const hours = Number(match[1]), minutes = Number(match[2]), seconds = Number(match[3] || 0);
+  if (hours > 23 || minutes > 59 || seconds > 59) return null;
+  return { hours, minutes, seconds, known: true };
 }
 
 function parseTags(value) {
