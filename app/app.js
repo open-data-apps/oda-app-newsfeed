@@ -4,7 +4,7 @@ const DEFAULT_FILTERS = {
   channel: "alle",
   tag: "alle",
   office: "alle",
-  range: "30d",
+  range: "all",
 };
 
 const CHANNEL_LABELS = {
@@ -523,7 +523,7 @@ function filterFeedItems(items, filters = {}, nowInput = new Date()) {
   const channelFilter = filters.channel || "alle";
   const tagFilter = filters.tag || "alle";
   const officeFilter = filters.office || "alle";
-  const rangeFilter = filters.range || "30d";
+  const rangeFilter = filters.range || "all";
 
   return items.filter((item) => {
     if (channelFilter !== "alle" && item.channel !== channelFilter) {

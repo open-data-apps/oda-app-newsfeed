@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.26.8 - 2026-10-15
+- FIX: Der Standard-Zeitraum ist jetzt „Gesamter Zeitraum“ statt „Letzte 30 Tage“: der Feed erscheint beim ersten Öffnen auch dann gefüllt, wenn die letzten Meldungen älter als 30 Tage sind. Der Beispieldatensatz `assets/beispiel-datensatz-presse-feed.json` wurde aktualisiert (15 Meldungen von August bis Oktober 2026, echte Umlaute statt Ersatzschreibweise).
+
 ## 1.26.7 - 2026-10-15
 - DOCS: Neue Store-Screenshots: je drei Desktop- (1440 × 1000) und Mobile-Aufnahmen (390 × 844) der aktuellen App, aufgenommen auf der Dev-Instanz. Bisherige Bilder nach `docs/screenshots/archive/2026-10-13/` verschoben. Keine Änderung an App-Code oder Konfiguration.
 
