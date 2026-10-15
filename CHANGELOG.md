@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.26.9 - 2026-10-15
+- FIX: Kopfzeile bei 360 px ohne Überlauf (Template): Logo- und Burger-Spalte passen sich der Breite an, das Menü-Symbol ragt nicht mehr über den rechten Rand. Keine Änderung an App-Code oder Konfiguration.
+
 ## 1.26.8 - 2026-10-15
 - FIX: Der Standard-Zeitraum ist jetzt „Gesamter Zeitraum“ statt „Letzte 30 Tage“: der Feed erscheint beim ersten Öffnen auch dann gefüllt, wenn die letzten Meldungen älter als 30 Tage sind. Der Beispieldatensatz `assets/beispiel-datensatz-presse-feed.json` wurde aktualisiert (15 Meldungen von August bis Oktober 2026, echte Umlaute statt Ersatzschreibweise).
 
