@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.26.10 - 2026-10-16
+- FIX: Schema: Feld `uhrzeit` akzeptiert Uhrzeiten ohne Sekunden (HH:MM), wie die Quelle sie liefert; die Store-Datenprüfung meldete sonst Fehler.
+
 ## 1.26.9 - 2026-10-15
 - FIX: Kopfzeile bei 360 px ohne Überlauf (Template): Logo- und Burger-Spalte passen sich der Breite an, das Menü-Symbol ragt nicht mehr über den rechten Rand. Keine Änderung an App-Code oder Konfiguration.
 

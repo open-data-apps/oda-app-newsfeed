@@ -17,6 +17,7 @@
       "type": "time",
       "description": "Uhrzeit der Veroeffentlichung",
       "title": "Uhrzeit",
+      "format": "%H:%M",
       "constraints": {
         "required": false
       }
