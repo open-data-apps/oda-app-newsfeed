@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.26.11 - 2026-11-03
+- DOCS: MIT-Lizenz ergänzt: `LICENSE` liegt im Repository und im Lieferpaket (`make zip`), das README hat einen Abschnitt „Lizenz“. Keine Änderung an App-Code oder Konfiguration.
+
 ## 1.26.10 - 2026-10-16
 - FIX: Schema: Feld `uhrzeit` akzeptiert Uhrzeiten ohne Sekunden (HH:MM), wie die Quelle sie liefert; die Store-Datenprüfung meldete sonst Fehler.
 
